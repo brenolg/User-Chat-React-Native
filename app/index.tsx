@@ -1,10 +1,12 @@
 import ErrorModal from "@/components/ErrorModal";
 import PageLoading from "@/components/PageLoading";
+import UserCard from "@/components/UserCard";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { FlatList, Switch, Text, View } from "react-native";
+import { FlatList, Switch } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../src/theme/ThemeProvider";
+import { usersMock } from "./usersMock";
 
 type User = {
   id: number;
@@ -22,7 +24,7 @@ export default function ThemeSwitch() {
   const isDark = theme === "dark";
 
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showError, setShowError] = useState(false);
 
@@ -62,8 +64,8 @@ export default function ThemeSwitch() {
         setLoading(false);
       }
     };
-
-    fetchUsers();
+    setUsers(usersMock);
+    // fetchUsers();
   }, []);
 
   return (
@@ -77,12 +79,10 @@ export default function ThemeSwitch() {
           data={users}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <View style={{ padding: 10 }}>
-              <Text>
-                {item.first_name} {item.last_name}
-              </Text>
-              <Text>{item.email}</Text>
-            </View>
+            <UserCard
+              user={item}
+              onPress={() => console.log("User pressed:", item)}
+            />
           )}
         />
       )}
