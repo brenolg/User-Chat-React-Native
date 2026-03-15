@@ -2,6 +2,7 @@ import ErrorModal from "@/components/ErrorModal";
 import PageLoading from "@/components/PageLoading";
 import UserCard from "@/components/UserCard";
 import axios from "axios";
+import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { FlatList, Switch } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -81,7 +82,12 @@ export default function ThemeSwitch() {
           renderItem={({ item }) => (
             <UserCard
               user={item}
-              onPress={() => console.log("User pressed:", item)}
+              onPress={() =>
+                router.push({
+                  pathname: "/profile",
+                  params: { user: JSON.stringify(item) },
+                })
+              }
             />
           )}
         />
