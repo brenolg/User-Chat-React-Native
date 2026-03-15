@@ -1,4 +1,5 @@
 import ErrorModal from "@/components/ErrorModal";
+import GenderFilter from "@/components/GenderFilter";
 import PageLoading from "@/components/PageLoading";
 import SearchInput from "@/components/SearchInput";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -22,6 +23,7 @@ export default function ThemeSwitch() {
   const [error, setError] = useState<string | null>(null);
   const [showError, setShowError] = useState(false);
   const [search, setSearch] = useState("");
+  const [gender, setGender] = useState<"all" | "male" | "female">("all");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -71,6 +73,9 @@ export default function ThemeSwitch() {
 
       <Container>
         <SearchInput value={search} onChangeText={setSearch} />
+
+        <GenderFilter value={gender} onChange={setGender} />
+
         {loading ? (
           <PageLoading />
         ) : (
