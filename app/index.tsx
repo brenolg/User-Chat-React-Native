@@ -1,14 +1,7 @@
+import PageLoading from "@/components/PageLoading";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  Modal,
-  Pressable,
-  Switch,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, Modal, Pressable, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../src/theme/ThemeProvider";
 
@@ -67,15 +60,7 @@ export default function ThemeSwitch() {
       <Switch value={isDark} onValueChange={toggleTheme} />
 
       {loading ? (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <ActivityIndicator size="large" />
-        </View>
+        <PageLoading />
       ) : (
         <FlatList
           data={users}
