@@ -1,5 +1,6 @@
 import ErrorModal from "@/components/ErrorModal";
 import PageLoading from "@/components/PageLoading";
+import SearchInput from "@/components/SearchInput";
 import ThemeToggle from "@/components/ThemeToggle";
 import UserCard from "@/components/UserCard";
 import User from "@/types/user";
@@ -20,6 +21,7 @@ export default function ThemeSwitch() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showError, setShowError] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -68,6 +70,7 @@ export default function ThemeSwitch() {
       </Header>
 
       <Container>
+        <SearchInput value={search} onChangeText={setSearch} />
         {loading ? (
           <PageLoading />
         ) : (
