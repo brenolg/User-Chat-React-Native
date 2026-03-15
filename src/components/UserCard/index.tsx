@@ -4,7 +4,7 @@ import { Avatar, Container, Email, Info, Name } from "./styles";
 
 type Props = {
   user: {
-    id: number;
+    id: string;
     first_name: string;
     last_name: string;
     email: string;

@@ -1,11 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import React from "react";
-import { Image } from "react-native";
+import { Image, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "styled-components/native";
 
 import InfoGrid from "@/components/InfoGrid";
+import User from "@/types/user";
 import {
   BackButton,
   Container,
@@ -13,14 +14,6 @@ import {
   HeaderTitle,
   Name,
 } from "./profileStyles";
-
-type User = {
-  id: number;
-  email: string;
-  first_name: string;
-  last_name: string;
-  avatar?: string;
-};
 
 export default function Profile() {
   const { user } = useLocalSearchParams();
@@ -42,10 +35,10 @@ export default function Profile() {
         <HeaderTitle>Voltar</HeaderTitle>
       </Header>
 
-      <Container>
-        {parsedUser.avatar && (
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Container>
           <Image
-            source={{ uri: parsedUser.avatar }}
+            source={{ uri: parsedUser.picture.large }}
             style={{
               width: 120,
               height: 120,
@@ -53,19 +46,35 @@ export default function Profile() {
               marginBottom: 20,
             }}
           />
-        )}
 
-        <Name>
-          {parsedUser.first_name} {parsedUser.last_name}
-        </Name>
+          <Name>
+            {parsedUser.name.first} {parsedUser.name.last}
+          </Name>
 
-        <InfoGrid
-          data={[
-            { value: parsedUser.email, label: "Email" },
-            { value: parsedUser.email, label: "Email" },
-          ]}
-        />
-      </Container>
+          <InfoGrid
+            data={[
+              { value: parsedUser.email, label: "E-mail" },
+              { value: parsedUser.phone, label: "Telefone" },
+              { value: parsedUser.cell, label: "Celular" },
+              { value: parsedUser.gender, label: "Gênero" },
+              {
+                value: new Date(parsedUser.dob.date).toLocaleDateString(
+                  "pt-BR",
+                ),
+                label: "Aniversário",
+              },
+              { value: parsedUser.dob.age, label: "Idade" },
+              { value: parsedUser.location.country, label: "País" },
+              { value: parsedUser.location.state, label: "Estado" },
+              { value: parsedUser.location.city, label: "Cidade" },
+              {
+                value: `${parsedUser.location.street.number} ${parsedUser.location.street.name}`,
+                label: "Rua",
+              },
+            ]}
+          />
+        </Container>
+      </ScrollView>
     </SafeAreaView>
   );
 }

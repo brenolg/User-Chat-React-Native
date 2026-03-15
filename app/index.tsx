@@ -1,20 +1,14 @@
 import ErrorModal from "@/components/ErrorModal";
 import PageLoading from "@/components/PageLoading";
 import UserCard from "@/components/UserCard";
-import axios from "axios";
+import User from "@/types/user";
+import axios, { isAxiosError } from "axios";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { FlatList, Switch } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../src/theme/ThemeProvider";
-import { usersMock } from "./usersMock";
-
-type User = {
-  id: number;
-  email: string;
-  first_name: string;
-  last_name: string;
-};
+import usersMock from "./usersMock";
 
 type UsersResponse = {
   data: User[];
@@ -42,7 +36,7 @@ export default function ThemeSwitch() {
               per_page: 6,
             },
             headers: {
-              "x-api-key": "reqres_ddb02a73c6e54d11ad596201bbc7306e",
+              "x-api-key": "reqres_dd1f705049a9464783a7628eaa861b48",
             },
           },
         );
@@ -51,7 +45,7 @@ export default function ThemeSwitch() {
       } catch (err) {
         let message = "Erro ao buscar usuários";
 
-        if (axios.isAxiosError(err)) {
+        if (isAxiosError(err)) {
           message =
             err.response?.data?.error ||
             err.response?.data?.message ||
@@ -65,8 +59,8 @@ export default function ThemeSwitch() {
         setLoading(false);
       }
     };
-    setUsers(usersMock);
-    // fetchUsers();
+    setUsers(usersMock.results);
+    //fetchUsers();
   }, []);
 
   return (
@@ -78,10 +72,16 @@ export default function ThemeSwitch() {
       ) : (
         <FlatList
           data={users}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.login.uuid}
           renderItem={({ item }) => (
             <UserCard
-              user={item}
+              user={{
+                id: item.login.uuid,
+                first_name: item.name.first,
+                last_name: item.name.last,
+                email: item.email,
+                avatar: item.picture.medium,
+              }}
               onPress={() =>
                 router.push({
                   pathname: "/profile",
