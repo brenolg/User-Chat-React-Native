@@ -3,6 +3,6 @@ export const darkTheme = {
     primary: "#6200ee",
     background: "#ffffff",
     text: "#000000",
-    card: "#f5f5f5",
+    card: "#000000",
   },
 };

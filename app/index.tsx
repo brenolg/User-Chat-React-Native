@@ -1,7 +1,8 @@
+import ErrorModal from "@/components/ErrorModal";
 import PageLoading from "@/components/PageLoading";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { FlatList, Modal, Pressable, Switch, Text, View } from "react-native";
+import { FlatList, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../src/theme/ThemeProvider";
 
@@ -44,8 +45,18 @@ export default function ThemeSwitch() {
         );
 
         setUsers(response.data.data);
-      } catch (err: any) {
-        setError(err.message || "Erro ao buscar usuários");
+      } catch (err) {
+        let message = "Erro ao buscar usuários";
+
+        if (axios.isAxiosError(err)) {
+          message =
+            err.response?.data?.error ||
+            err.response?.data?.message ||
+            err.response?.statusText ||
+            err.message;
+        }
+
+        setError(message);
         setShowError(true);
       } finally {
         setLoading(false);
@@ -75,44 +86,11 @@ export default function ThemeSwitch() {
           )}
         />
       )}
-
-      <Modal visible={showError} transparent animationType="fade">
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "rgba(0,0,0,0.4)",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: "#fff",
-              padding: 20,
-              borderRadius: 10,
-              width: "80%",
-            }}
-          >
-            <Text style={{ fontSize: 16, marginBottom: 10 }}>
-              Ocorreu um erro
-            </Text>
-
-            <Text style={{ marginBottom: 20 }}>{error}</Text>
-
-            <Pressable
-              onPress={() => setShowError(false)}
-              style={{
-                backgroundColor: "#007AFF",
-                padding: 10,
-                borderRadius: 6,
-                alignItems: "center",
-              }}
-            >
-              <Text style={{ color: "#fff" }}>Fechar</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
+      <ErrorModal
+        visible={showError}
+        message={error}
+        onClose={() => setShowError(false)}
+      />
     </SafeAreaView>
   );
 }
