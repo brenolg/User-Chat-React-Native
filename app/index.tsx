@@ -1,13 +1,14 @@
 import ErrorModal from "@/components/ErrorModal";
 import PageLoading from "@/components/PageLoading";
+import ThemeToggle from "@/components/ThemeToggle";
 import UserCard from "@/components/UserCard";
 import User from "@/types/user";
 import axios, { isAxiosError } from "axios";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { FlatList, Switch } from "react-native";
+import { FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useTheme } from "../src/theme/ThemeProvider";
+import { Container, Header } from "./indexStyles";
 import usersMock from "./usersMock";
 
 type UsersResponse = {
@@ -15,9 +16,6 @@ type UsersResponse = {
 };
 
 export default function ThemeSwitch() {
-  const { theme, toggleTheme } = useTheme();
-  const isDark = theme === "dark";
-
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -65,38 +63,43 @@ export default function ThemeSwitch() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Switch value={isDark} onValueChange={toggleTheme} />
+      <Header>
+        <ThemeToggle />
+      </Header>
 
-      {loading ? (
-        <PageLoading />
-      ) : (
-        <FlatList
-          data={users}
-          keyExtractor={(item) => item.login.uuid}
-          renderItem={({ item }) => (
-            <UserCard
-              user={{
-                id: item.login.uuid,
-                first_name: item.name.first,
-                last_name: item.name.last,
-                email: item.email,
-                avatar: item.picture.medium,
-              }}
-              onPress={() =>
-                router.push({
-                  pathname: "/profile",
-                  params: { user: JSON.stringify(item) },
-                })
-              }
-            />
-          )}
+      <Container>
+        {loading ? (
+          <PageLoading />
+        ) : (
+          <FlatList
+            data={users}
+            style={{ flex: 1 }}
+            keyExtractor={(item) => item.login.uuid}
+            renderItem={({ item }) => (
+              <UserCard
+                user={{
+                  id: item.login.uuid,
+                  first_name: item.name.first,
+                  last_name: item.name.last,
+                  email: item.email,
+                  avatar: item.picture.medium,
+                }}
+                onPress={() =>
+                  router.push({
+                    pathname: "/profile",
+                    params: { user: JSON.stringify(item) },
+                  })
+                }
+              />
+            )}
+          />
+        )}
+        <ErrorModal
+          visible={showError}
+          message={error}
+          onClose={() => setShowError(false)}
         />
-      )}
-      <ErrorModal
-        visible={showError}
-        message={error}
-        onClose={() => setShowError(false)}
-      />
+      </Container>
     </SafeAreaView>
   );
 }

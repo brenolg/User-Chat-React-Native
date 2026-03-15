@@ -22,7 +22,7 @@ export default function Profile() {
   const parsedUser: User = JSON.parse(user as string);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <Header>
         <BackButton onPress={() => router.back()}>
           <Ionicons
@@ -35,7 +35,7 @@ export default function Profile() {
         <HeaderTitle>Voltar</HeaderTitle>
       </Header>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         <Container>
           <Image
             source={{ uri: parsedUser.picture.large }}
