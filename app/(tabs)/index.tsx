@@ -5,6 +5,7 @@ import SearchButton from "@/components/SearchButton";
 import SearchInput from "@/components/SearchInput";
 import ThemeToggle from "@/components/ThemeToggle";
 import UserCard from "@/components/UserCard";
+import { useUsers } from "@/context/UsersContext";
 import { SafeArea } from "@/theme/commonStyles";
 import User from "@/types/user";
 import axios, { isAxiosError } from "axios";
@@ -19,12 +20,12 @@ type UsersResponse = {
 };
 
 export default function ThemeSwitch() {
-  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showError, setShowError] = useState(false);
   const [search, setSearch] = useState("");
   const [gender, setGender] = useState<"all" | "male" | "female">("all");
+  const { users, setUsers } = useUsers();
 
   useEffect(() => {
     const fetchUsers = async () => {

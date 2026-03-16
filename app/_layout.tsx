@@ -1,3 +1,4 @@
+import { UsersProvider } from "@/context/UsersContext";
 import { Stack } from "expo-router";
 import { ThemeProvider } from "styled-components/native";
 import { darkTheme } from "../src/theme/dark";
@@ -11,7 +12,9 @@ function Layout() {
 
   return (
     <ThemeProvider theme={selectedTheme}>
-      <Stack screenOptions={{ headerShown: false }} />
+      <UsersProvider>
+        <Stack screenOptions={{ headerShown: false }} />
+      </UsersProvider>
     </ThemeProvider>
   );
 }
