@@ -12,7 +12,6 @@ import React, { useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Container, Header } from "./indexStyles";
-import usersMock from "./usersMock";
 
 type UsersResponse = {
   data: User[];
@@ -32,11 +31,12 @@ export default function ThemeSwitch() {
         setLoading(true);
 
         const response = await axios.get<UsersResponse>(
-          "https://reqres.in/api/users",
+          "https://randomuser.me/api",
           {
             params: {
               page: 1,
-              per_page: 6,
+              results: 10,
+              seed: "people-app",
             },
             headers: {
               "x-api-key": "reqres_dd1f705049a9464783a7628eaa861b48",
@@ -44,7 +44,7 @@ export default function ThemeSwitch() {
           },
         );
 
-        setUsers(response.data.data);
+        setUsers(response.data.results);
       } catch (err) {
         let message = "Erro ao buscar usuários";
 
@@ -62,8 +62,8 @@ export default function ThemeSwitch() {
         setLoading(false);
       }
     };
-    setUsers(usersMock.results);
-    //fetchUsers();
+    //setUsers(usersMock.results);
+    fetchUsers();
   }, []);
 
   const handleSearch = () => {
