@@ -5,16 +5,17 @@ import SearchButton from "@/components/SearchButton";
 import SearchInput from "@/components/SearchInput";
 import ThemeToggle from "@/components/ThemeToggle";
 import UserCard from "@/components/UserCard";
+import { SafeArea } from "@/theme/commonStyles";
 import User from "@/types/user";
 import axios, { isAxiosError } from "axios";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { FlatList } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import usersMock from "../../src/mocks/usersMock";
 import { Container, Header } from "./indexStyles";
 
 type UsersResponse = {
-  data: User[];
+  results: User[];
 };
 
 export default function ThemeSwitch() {
@@ -36,14 +37,10 @@ export default function ThemeSwitch() {
             params: {
               page: 1,
               results: 10,
-              seed: "people-app",
-            },
-            headers: {
-              "x-api-key": "reqres_dd1f705049a9464783a7628eaa861b48",
             },
           },
         );
-
+        console.log(response.data);
         setUsers(response.data.results);
       } catch (err) {
         let message = "Erro ao buscar usuários";
@@ -62,8 +59,8 @@ export default function ThemeSwitch() {
         setLoading(false);
       }
     };
-    //setUsers(usersMock.results);
-    fetchUsers();
+    setUsers(usersMock.results);
+    //fetchUsers();
   }, []);
 
   const handleSearch = () => {
@@ -71,7 +68,7 @@ export default function ThemeSwitch() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeArea>
       <Header>
         <SearchButton onPress={handleSearch} />
         <ThemeToggle />
@@ -114,6 +111,6 @@ export default function ThemeSwitch() {
           onClose={() => setShowError(false)}
         />
       </Container>
-    </SafeAreaView>
+    </SafeArea>
   );
 }
