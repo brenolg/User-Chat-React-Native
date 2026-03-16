@@ -12,10 +12,8 @@ export const FilterButton = styled.Pressable<{ active: boolean }>`
   flex-direction: row;
   align-items: center;
   gap: 6px;
-
   padding: 10px 14px;
-  border-radius: 20px;
-
+  border-radius: 12px;
   background-color: ${({ theme, active }) =>
     active ? theme.colors.primary : theme.colors.card};
 `;
@@ -23,7 +21,10 @@ export const FilterButton = styled.Pressable<{ active: boolean }>`
 export const FilterText = styled.Text<{ active: boolean }>`
   font-size: 14px;
   font-weight: 600;
-
-  color: ${({ theme, active }) =>
-    active ? theme.colors.background : theme.colors.text};
+  color: ${({ theme, active }) => {
+    if (theme.mode === "dark") {
+      return theme.colors.text;
+    }
+    return active ? theme.colors.background : theme.colors.text;
+  }};
 `;

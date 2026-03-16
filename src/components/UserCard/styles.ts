@@ -5,7 +5,7 @@ export const Container = styled.View`
   align-items: center;
   padding: 16px;
   margin: 8px 0px;
-  border-radius: 10px;
+  border-radius: 12px;
   background-color: ${({ theme }) => theme.colors.card};
 `;
 

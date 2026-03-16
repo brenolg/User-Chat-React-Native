@@ -6,7 +6,7 @@ export const Button = styled.Pressable`
   justify-content: center;
   gap: 6px;
   padding: 12px;
-  border-radius: 10px;
+  border-radius: 12px;
   background-color: ${({ theme }) => theme.colors.primary};
 `;
 
