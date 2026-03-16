@@ -1,6 +1,7 @@
 import ErrorModal from "@/components/ErrorModal";
 import GenderFilter from "@/components/GenderFilter";
 import PageLoading from "@/components/PageLoading";
+import SearchButton from "@/components/SearchButton";
 import SearchInput from "@/components/SearchInput";
 import ThemeToggle from "@/components/ThemeToggle";
 import UserCard from "@/components/UserCard";
@@ -65,9 +66,14 @@ export default function ThemeSwitch() {
     //fetchUsers();
   }, []);
 
+  const handleSearch = () => {
+    console.log(search, gender);
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header>
+        <SearchButton onPress={handleSearch} />
         <ThemeToggle />
       </Header>
 

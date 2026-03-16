@@ -4,7 +4,6 @@ export const Container = styled.View`
   flex-direction: row;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.card};
-  margin: 16px;
   padding: 6px 12px;
   border-radius: 14px;
   border-width: 1px;

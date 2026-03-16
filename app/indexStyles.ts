@@ -1,9 +1,11 @@
 import styled from "styled-components/native";
 
 export const Header = styled.View`
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 12px 24px;
+  flex-direction: row;
+  display: flex;
+  padding: 12px 36px;
   border-bottom-width: 1px;
   border-bottom-color: ${({ theme }) => theme.colors.border};
   background-color: ${({ theme }) => theme.colors.card};
@@ -20,6 +22,7 @@ export const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 12px;
+  padding: 16px 36px;
+  gap: 16px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
