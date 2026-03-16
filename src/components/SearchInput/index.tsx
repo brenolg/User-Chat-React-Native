@@ -16,7 +16,7 @@ export default function SearchInput({ value, onChangeText }: Props) {
       <Ionicons name="search" size={20} color={theme.colors.secondaryText} />
 
       <Input
-        placeholder="Buscar pessoas..."
+        placeholder="Buscar nomes..."
         placeholderTextColor={theme.colors.secondaryText}
         value={value}
         onChangeText={onChangeText}
