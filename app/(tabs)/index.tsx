@@ -1,7 +1,7 @@
 import ErrorModal from "@/components/ErrorModal";
 import GenderFilter from "@/components/GenderFilter";
 import PageLoading from "@/components/PageLoading";
-import SearchButton from "@/components/SearchButton";
+import SearchButton from "@/components/MainButton";
 import SearchInput from "@/components/SearchInput";
 import ThemeToggle from "@/components/ThemeToggle";
 import UserCard from "@/components/UserCard";
@@ -76,7 +76,12 @@ export default function ThemeSwitch() {
       </Header>
 
       <Container>
-        <SearchInput value={search} onChangeText={setSearch} />
+        <SearchInput
+          value={search}
+          onChangeText={setSearch}
+          placeholder="Digite uma mensagem"
+          icon="search"
+        />
 
         <GenderFilter value={gender} onChange={setGender} />
 

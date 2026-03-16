@@ -1,3 +1,4 @@
+import SearchInput from "@/components/SearchInput";
 import UserPicker from "@/components/UserSelect";
 import { SafeArea } from "@/theme/commonStyles";
 import React, { useState } from "react";
@@ -8,6 +9,7 @@ import { Container, Name } from "../profileStyles";
 export default function Profile() {
   const theme = useTheme();
   const [userId, setUserId] = useState<string>("");
+  const [message, setMessage] = useState("");
 
   return (
     <SafeArea>
@@ -17,6 +19,12 @@ export default function Profile() {
       >
         <Container>
           <Name>Histórico de mensagens</Name>
+
+          <SearchInput
+            value={message}
+            onChangeText={setMessage}
+            placeholder="Escolha um destinatário"
+          />
           <UserPicker value={userId} onChange={(id) => setUserId(id)} />
         </Container>
       </ScrollView>
