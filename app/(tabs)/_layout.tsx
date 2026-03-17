@@ -13,7 +13,7 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: theme.colors.card,
           borderTopWidth: 0.5,
-          height: 65,
+          height: 105,
           paddingBottom: 10,
           borderTopColor: theme.colors.border,
         },
