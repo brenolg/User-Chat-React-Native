@@ -2,20 +2,41 @@ import MainButton from "@/components/MainButton";
 import SearchInput from "@/components/SearchInput";
 import UserPicker from "@/components/UserSelect";
 import { PageContainer, PageTitle, SafeArea } from "@/theme/commonStyles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 import { useTheme } from "styled-components/native";
 
+import { useUsers } from "@/context/UsersContext";
+import ChatMessage from "@/types/chat";
 import { BtnRow } from "./chatHistoryStyles";
 
 export default function Profile() {
   const theme = useTheme();
   const [userId, setUserId] = useState<string>("");
   const [message, setMessage] = useState("");
+  const { users, setChat, chat } = useUsers();
 
   const sendMsg = () => {
-    console.log("search, gender");
+    if (!message || !userId) return;
+
+    const selectedUser = users.find((user) => user.login.uuid === userId);
+
+    if (!selectedUser) return;
+
+    const newMessage: ChatMessage = {
+      id: String(Date.now()),
+      img: selectedUser.picture.thumbnail, // ou large se quiser
+      createdAt: new Date().toISOString(),
+      msg: message,
+    };
+
+    setChat((prev) => [newMessage, ...prev]);
+    setMessage("");
   };
+
+  useEffect(() => {
+    console.log(chat);
+  }, [chat]);
 
   return (
     <SafeArea>

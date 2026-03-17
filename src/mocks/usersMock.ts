@@ -1,98 +1,56 @@
-const baseUsers = [
-  {
-    gender: "male",
-    name: { first: "George", last: "Bluth" },
-    picture: {
-      thumbnail: "https://randomuser.me/api/portraits/thumb/men/1.jpg",
-    },
-  },
-  {
-    gender: "female",
-    name: { first: "Janet", last: "Weaver" },
-    picture: {
-      thumbnail: "https://randomuser.me/api/portraits/thumb/women/2.jpg",
-    },
-  },
-  {
-    gender: "female",
-    name: { first: "Emma", last: "Wong" },
-    picture: {
-      thumbnail: "https://randomuser.me/api/portraits/thumb/women/3.jpg",
-    },
-  },
-  {
-    gender: "female",
-    name: { first: "Eve", last: "Holt" },
-    picture: {
-      thumbnail: "https://randomuser.me/api/portraits/thumb/women/4.jpg",
-    },
-  },
-  {
-    gender: "male",
-    name: { first: "Charles", last: "Morris" },
-    picture: {
-      thumbnail: "https://randomuser.me/api/portraits/thumb/men/5.jpg",
-    },
-  },
-  {
-    gender: "female",
-    name: { first: "Tracey", last: "Ramos" },
-    picture: {
-      thumbnail: "https://randomuser.me/api/portraits/thumb/women/6.jpg",
-    },
-  },
-];
-
 const usersMock = {
-  results: Array.from({ length: 40 }).map((_, index) => {
-    const base = baseUsers[index % baseUsers.length];
+  results: Array.from({ length: 30 }).map((_, index) => {
+    const id = index + 1;
+
+    const gender = index % 2 === 0 ? "male" : "female";
 
     return {
-      gender: base.gender,
-      email: `${base.name.first.toLowerCase()}.${base.name.last.toLowerCase()}${index}@example.com`,
-      phone: "(272) 790-0888",
-      cell: "(489) 330-2385",
+      gender,
+
+      email: `user${id}@example.com`,
+      phone: `(11) 9000-${String(1000 + id)}`,
+      cell: `(11) 9800-${String(1000 + id)}`,
 
       name: {
-        first: base.name.first,
-        last: base.name.last,
+        first: `User${id}`,
+        last: `Test${id}`,
       },
 
       login: {
-        uuid: String(index + 1),
+        uuid: `uuid-${id}`,
       },
 
       dob: {
         date: "1990-01-01T00:00:00.000Z",
-        age: 30,
+        age: 30 + (id % 10),
       },
 
       location: {
         street: {
-          number: 100 + index,
-          name: "Main Street",
+          number: 100 + id,
+          name: `Street ${id}`,
         },
-        city: "New York",
-        state: "NY",
-        country: "United States",
-        postcode: "10001",
+        city: "São Paulo",
+        state: "SP",
+        country: "Brazil",
+        postcode: `0100${id}`,
         coordinates: {
-          latitude: "40.7128",
-          longitude: "-74.0060",
+          latitude: "-23.5505",
+          longitude: "-46.6333",
         },
       },
 
       picture: {
-        large: base.picture.thumbnail.replace("thumb", "men"),
-        medium: base.picture.thumbnail.replace("thumb", "med"),
-        thumbnail: base.picture.thumbnail,
+        large: `https://randomuser.me/api/portraits/${gender === "male" ? "men" : "women"}/${id}.jpg`,
+        medium: `https://randomuser.me/api/portraits/med/${gender === "male" ? "men" : "women"}/${id}.jpg`,
+        thumbnail: `https://randomuser.me/api/portraits/thumb/${gender === "male" ? "men" : "women"}/${id}.jpg`,
       },
     };
   }),
 
   info: {
     seed: "mock",
-    results: 40,
+    results: 30,
     page: 1,
     version: "1.4",
   },
