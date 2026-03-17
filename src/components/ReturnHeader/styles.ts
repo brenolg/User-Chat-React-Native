@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 export const Header = styled.View`
   flex-direction: row;
   align-items: center;
-  padding: 16px;
+  padding: 24px 36px;
 `;
 
 export const BackButton = styled.TouchableOpacity`
