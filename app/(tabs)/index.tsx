@@ -26,45 +26,47 @@ export default function ThemeSwitch() {
   const [gender, setGender] = useState<"all" | "male" | "female">("all");
   const { users, setUsers } = useUsers();
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        setLoading(true);
+  const fetchUsers = async () => {
+    try {
+      setLoading(true);
 
-        const response = await axios.get<UsersResponse>(
-          "https://randomuser.me/api",
-          {
-            params: {
-              page: 1,
-              results: 10,
-            },
+      const response = await axios.get<UsersResponse>(
+        "https://randomuser.me/api",
+        {
+          params: {
+            page: 1,
+            nat: "BR",
+            results: 10,
+            gender: gender === "all" ? undefined : gender,
           },
-        );
-        console.log(response.data);
-        setUsers(response.data.results);
-      } catch (err) {
-        let message = "Erro ao buscar usuários";
+        },
+      );
+      console.log(response.data.results);
+      setUsers(response.data.results);
+    } catch (err) {
+      let message = "Erro ao buscar usuários";
 
-        if (isAxiosError(err)) {
-          message =
-            err.response?.data?.error ||
-            err.response?.data?.message ||
-            err.response?.statusText ||
-            err.message;
-        }
-
-        setError(message);
-        setShowError(true);
-      } finally {
-        setLoading(false);
+      if (isAxiosError(err)) {
+        message =
+          err.response?.data?.error ||
+          err.response?.data?.message ||
+          err.response?.statusText ||
+          err.message;
       }
-    };
+
+      setError(message);
+      setShowError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
     //setUsers(usersMock.results);
     fetchUsers();
   }, []);
 
   const handleSearch = () => {
-    console.log(search, gender);
+    fetchUsers();
   };
 
   return (

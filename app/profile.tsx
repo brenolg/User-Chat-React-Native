@@ -1,13 +1,12 @@
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
 import { Image, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "styled-components/native";
 
 import InfoGrid from "@/components/InfoGrid";
 import ReturnHeader from "@/components/ReturnHeader";
 import { formatDate } from "@/helper/dates";
-import { PageTitle } from "@/theme/commonStyles";
+import { PageTitle, SafeArea } from "@/theme/commonStyles";
 import User from "@/types/user";
 import { Container } from "./profileStyles";
 
@@ -18,7 +17,7 @@ export default function Profile() {
   const parsedUser: User = JSON.parse(user as string);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeArea style={{ flex: 1 }}>
       <ReturnHeader />
 
       <ScrollView
@@ -62,6 +61,6 @@ export default function Profile() {
           />
         </Container>
       </ScrollView>
-    </SafeAreaView>
+    </SafeArea>
   );
 }
