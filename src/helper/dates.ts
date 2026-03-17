@@ -6,6 +6,7 @@ export function formatDateTime(dateString: string): string {
 
   if (isToday) {
     return `Hoje ${date.toLocaleTimeString("pt-BR", {
+      timeZone: "America/Sao_Paulo",
       hour: "2-digit",
       minute: "2-digit",
       hour12: false,

@@ -28,7 +28,7 @@ export default function ChatDetails() {
       userId: parsedUser.login.uuid,
       img: parsedUser.picture.thumbnail,
       name: `${parsedUser.name.first} ${parsedUser.name.last}`,
-      createdAt: new Date().toLocaleString("pt-BR"),
+      createdAt: new Date().toString(),
       msg: message,
     };
 

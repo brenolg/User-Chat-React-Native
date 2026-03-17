@@ -26,7 +26,7 @@ export default function ChatHistory() {
       img: selectedUser.picture.thumbnail,
       userId: selectedUser.login.uuid,
       name: `${selectedUser.name.first} ${selectedUser.name.last}`,
-      createdAt: new Date().toLocaleString("pt-BR"),
+      createdAt: new Date().toString(),
       msg: message,
     };
 
