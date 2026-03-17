@@ -25,10 +25,10 @@ export default function ChatDetails() {
 
     const newMessage: ChatMessage = {
       id: String(Date.now()),
-      userId: parsedUser.id,
-      img: parsedUser.avatar,
-      name: `${parsedUser.first_name} ${parsedUser.last_name}`,
-      createdAt: Date.now(),
+      userId: parsedUser.login.uuid,
+      img: parsedUser.picture.thumbnail,
+      name: `${parsedUser.name.first} ${parsedUser.name.last}`,
+      createdAt: new Date().toLocaleString("pt-BR"),
       msg: message,
     };
 
@@ -36,14 +36,16 @@ export default function ChatDetails() {
     setMessage("");
   };
 
-  const userMessages = chat.filter((item) => item.userId === parsedUser?.id);
+  const userMessages = chat.filter(
+    (item) => item.userId === parsedUser?.login.uuid,
+  );
 
   return (
     <SafeArea style={{ flex: 1 }}>
       <ReturnHeader />
 
       <PageContainer style={{ flex: 1 }}>
-        <PageTitle>Chat com {parsedUser?.first_name}</PageTitle>
+        <PageTitle>Chat com {parsedUser?.name.first}</PageTitle>
 
         <SearchInput
           value={message}

@@ -3,7 +3,7 @@ type ChatMessage = {
   userId: string;
   img: string;
   name: string;
-  createdAt: number;
+  createdAt: string;
   msg: string;
 };
 export default ChatMessage;
