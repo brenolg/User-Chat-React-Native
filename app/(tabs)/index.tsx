@@ -10,7 +10,8 @@ import User from "@/types/user";
 import axios, { isAxiosError } from "axios";
 import { router } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
+import { useTheme } from "styled-components";
 import { Header } from "./indexStyles";
 
 type UsersResponse = {
@@ -26,6 +27,7 @@ export default function ThemeSwitch() {
   const { users, setUsers } = useUsers();
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
+  const theme = useTheme();
 
   const fetchUsers = async (pageNumber = 1, isRefresh = false) => {
     try {
@@ -41,7 +43,6 @@ export default function ThemeSwitch() {
           params: {
             page: pageNumber,
             results: 20,
-            seed: "app",
             nat: country === "all" ? undefined : country,
             gender: gender === "all" ? undefined : gender,
           },
@@ -91,19 +92,19 @@ export default function ThemeSwitch() {
     fetchUsers(1, true);
   };
 
-  const renderItem = useCallback(({ item }: { item: User }) => {
-    return (
-      <UserCard
-        user={item}
-        onPress={() =>
-          router.push({
-            pathname: "/profile",
-            params: { user: JSON.stringify(item) },
-          })
-        }
-      />
-    );
+  const handlePress = useCallback((item: User) => {
+    router.push({
+      pathname: "/profile",
+      params: { user: JSON.stringify(item) },
+    });
   }, []);
+
+  const renderItem = useCallback(
+    ({ item }: { item: User }) => {
+      return <UserCard user={item} onPress={() => handlePress(item)} />;
+    },
+    [handlePress],
+  );
 
   return (
     <SafeArea>
@@ -146,6 +147,20 @@ export default function ThemeSwitch() {
           maxToRenderPerBatch={10}
           windowSize={5}
           showsVerticalScrollIndicator={false}
+          getItemLayout={(_, index) => ({
+            length: 98,
+            offset: 98 * index,
+            index,
+          })}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={onRefresh}
+              colors={[theme.colors.primary]} // Android
+              tintColor={theme.colors.primary} //  iOS
+              progressBackgroundColor={theme.colors.card}
+            />
+          }
         />
 
         <ErrorModal

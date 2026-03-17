@@ -8,11 +8,7 @@ export default function PageLoading() {
 
   return (
     <Container>
-      <ActivityIndicator
-        size="large"
-        color={theme.colors.primary}
-        style={{ transform: [{ scale: 1.5 }] }}
-      />
+      <ActivityIndicator size="large" color={theme.colors.primary} />
     </Container>
   );
 }

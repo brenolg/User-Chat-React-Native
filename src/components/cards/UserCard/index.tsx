@@ -45,4 +45,6 @@ function UserCard({ user, onPress }: Props) {
   );
 }
 
-export default React.memo(UserCard);
+export default React.memo(UserCard, (prev, next) => {
+  return prev.user.login.uuid === next.user.login.uuid;
+});
