@@ -8,15 +8,16 @@ export const SafeArea = styled(SafeAreaView)`
 
 export const PageContainer = styled.View`
   flex: 1;
-  align-items: center;
+
   justify-content: flex-start;
   padding: 16px 36px;
-  gap: 16px;
+  gap: 12px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 export const PageTitle = styled.Text`
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
   margin-bottom: 24px;
+  text-align: center;
   color: ${({ theme }) => theme.colors.text};
 `;

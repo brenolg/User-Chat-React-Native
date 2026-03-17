@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const Button = styled.TouchableOpacity`
+export const Button = styled.TouchableOpacity<{ $disabled?: boolean }>`
   flex-direction: row;
   align-items: center;
   justify-content: center;

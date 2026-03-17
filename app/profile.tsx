@@ -6,6 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "styled-components/native";
 
 import InfoGrid from "@/components/InfoGrid";
+import { formatDate } from "@/helper/dates";
 import { PageTitle } from "@/theme/commonStyles";
 import User from "@/types/user";
 import { BackButton, Container, Header, HeaderTitle } from "./profileStyles";
@@ -56,9 +57,7 @@ export default function Profile() {
               { value: parsedUser.cell, label: "Celular" },
               { value: parsedUser.gender, label: "Gênero" },
               {
-                value: new Date(parsedUser.dob.date).toLocaleDateString(
-                  "pt-BR",
-                ),
+                value: formatDate(parsedUser.dob.date),
                 label: "Aniversário",
               },
               { value: parsedUser.dob.age, label: "Idade" },

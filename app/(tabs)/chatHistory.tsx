@@ -2,10 +2,11 @@ import MainButton from "@/components/MainButton";
 import SearchInput from "@/components/SearchInput";
 import UserPicker from "@/components/UserSelect";
 import { PageContainer, PageTitle, SafeArea } from "@/theme/commonStyles";
-import React, { useEffect, useState } from "react";
-import { ScrollView } from "react-native";
+import React, { useState } from "react";
+import { FlatList } from "react-native";
 import { useTheme } from "styled-components/native";
 
+import ChatCard from "@/components/ChatCard";
 import { useUsers } from "@/context/UsersContext";
 import ChatMessage from "@/types/chat";
 import { BtnRow } from "./chatHistoryStyles";
@@ -24,7 +25,8 @@ export default function Profile() {
 
     const newMessage: ChatMessage = {
       id: String(Date.now()),
-      img: selectedUser.picture.thumbnail, // ou large se quiser
+      img: selectedUser.picture.thumbnail,
+      name: `${selectedUser.name.first} ${selectedUser.name.last}`,
       createdAt: new Date().toISOString(),
       msg: message,
     };
@@ -33,36 +35,43 @@ export default function Profile() {
     setMessage("");
   };
 
-  useEffect(() => {
-    console.log(chat);
-  }, [chat]);
-
   return (
-    <SafeArea>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{ flex: 1, backgroundColor: theme.colors.background }}
-      >
-        <PageContainer>
-          <PageTitle>Histórico de mensagens</PageTitle>
+    <SafeArea style={{ flex: 1 }}>
+      <PageContainer style={{ flex: 1 }}>
+        <PageTitle style={{ marginTop: 24 }}>Histórico de mensagens</PageTitle>
 
-          <SearchInput
-            value={message}
-            onChangeText={setMessage}
-            placeholder="Digite sua mensagem..."
-            icon="chatbubbles-outline"
+        <SearchInput
+          value={message}
+          onChangeText={setMessage}
+          placeholder="Digite sua mensagem..."
+          icon="chatbubbles-outline"
+        />
+        <BtnRow>
+          <UserPicker value={userId} onChange={(id) => setUserId(id)} />
+          <MainButton
+            icon="send-outline"
+            text="Enviar mensagem"
+            onPress={sendMsg}
+            disabled={chatDisabled}
           />
-          <BtnRow>
-            <UserPicker value={userId} onChange={(id) => setUserId(id)} />
-            <MainButton
-              icon="send-outline"
-              text="Enviar mensagem"
-              onPress={sendMsg}
-              disabled={chatDisabled}
+        </BtnRow>
+
+        <FlatList
+          data={chat}
+          keyExtractor={(item) => item.id}
+          style={{ flex: 1 }}
+          renderItem={({ item }) => (
+            <ChatCard
+              img={item.img}
+              msg={item.msg}
+              name={item.name}
+              createdAt={item.createdAt}
             />
-          </BtnRow>
-        </PageContainer>
-      </ScrollView>
+          )}
+          contentContainerStyle={{ paddingBottom: 10 }}
+          showsVerticalScrollIndicator={false}
+        />
+      </PageContainer>
     </SafeArea>
   );
 }
