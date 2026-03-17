@@ -18,6 +18,7 @@ export const Avatar = styled.Image`
 
 export const Info = styled.View`
   margin-left: 12px;
+  flex: 1;
 `;
 
 export const Name = styled.Text`
@@ -30,10 +31,11 @@ export const Email = styled.Text`
   font-size: 14px;
   color: ${({ theme }) => theme.colors.text};
   opacity: 0.7;
+  padding-right: 6px;
 `;
 export const ChatButton = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.colors.primary};
-
+  flex-shrink: 0;
   width: 50px;
   height: 50px;
   border-radius: 25px;

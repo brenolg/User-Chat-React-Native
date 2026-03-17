@@ -30,11 +30,13 @@ export default function UserCard({ user, onPress }: Props) {
         {user.avatar && <Avatar source={{ uri: user.avatar }} />}
 
         <Info>
-          <Name>
+          <Name numberOfLines={1} ellipsizeMode="tail">
             {user.first_name} {user.last_name}
           </Name>
 
-          <Email>{user.email}</Email>
+          <Email numberOfLines={1} ellipsizeMode="tail">
+            {user.email}
+          </Email>
         </Info>
 
         <ChatButton onPress={goToChat}>
