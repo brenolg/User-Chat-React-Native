@@ -16,7 +16,7 @@ type Props = {
   img: string;
   msg: string;
   name: string;
-  createdAt: string;
+  createdAt: number;
 };
 
 export default function ChatCard({ img, name, msg, createdAt }: Props) {

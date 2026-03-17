@@ -1,15 +1,15 @@
-import { Ionicons } from "@expo/vector-icons";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import React from "react";
 import { Image, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "styled-components/native";
 
 import InfoGrid from "@/components/InfoGrid";
+import ReturnHeader from "@/components/ReturnHeader";
 import { formatDate } from "@/helper/dates";
 import { PageTitle } from "@/theme/commonStyles";
 import User from "@/types/user";
-import { BackButton, Container, Header, HeaderTitle } from "./profileStyles";
+import { Container } from "./profileStyles";
 
 export default function Profile() {
   const { user } = useLocalSearchParams();
@@ -19,17 +19,7 @@ export default function Profile() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Header>
-        <BackButton onPress={() => router.back()}>
-          <Ionicons
-            name="chevron-back"
-            size={28}
-            color={theme.colors.primary}
-          />
-        </BackButton>
-
-        <HeaderTitle>Voltar</HeaderTitle>
-      </Header>
+      <ReturnHeader />
 
       <ScrollView
         showsVerticalScrollIndicator={false}

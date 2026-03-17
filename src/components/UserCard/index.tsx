@@ -1,6 +1,8 @@
+import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { Avatar, Container, Email, Info, Name } from "./styles";
+import { Avatar, ChatButton, Container, Email, Info, Name } from "./styles";
 
 type Props = {
   user: {
@@ -14,6 +16,14 @@ type Props = {
 };
 
 export default function UserCard({ user, onPress }: Props) {
+  const goToChat = () => {
+    router.push({
+      pathname: "/chatDetails",
+      params: {
+        selectedUser: JSON.stringify(user),
+      },
+    });
+  };
   return (
     <TouchableOpacity onPress={onPress}>
       <Container>
@@ -26,6 +36,10 @@ export default function UserCard({ user, onPress }: Props) {
 
           <Email>{user.email}</Email>
         </Info>
+
+        <ChatButton onPress={goToChat}>
+          <Ionicons name="chatbubbles-outline" size={25} color="#fff" />
+        </ChatButton>
       </Container>
     </TouchableOpacity>
   );

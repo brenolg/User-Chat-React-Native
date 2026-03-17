@@ -1,45 +1,49 @@
 import MainButton from "@/components/MainButton";
 import SearchInput from "@/components/SearchInput";
-import UserPicker from "@/components/UserSelect";
 import { PageContainer, PageTitle, SafeArea } from "@/theme/commonStyles";
 import React, { useState } from "react";
 import { FlatList } from "react-native";
 
 import ChatCard from "@/components/ChatCard";
+import ReturnHeader from "@/components/ReturnHeader";
 import { useUsers } from "@/context/UsersContext";
 import ChatMessage from "@/types/chat";
-import { BtnRow } from "./chatHistoryStyles";
+import { useLocalSearchParams } from "expo-router";
+import { BtnRow } from "./(tabs)/chatHistoryStyles";
 
-export default function ChatHistory() {
-  const [userId, setUserId] = useState<string>("");
+export default function ChatDetails() {
   const [message, setMessage] = useState("");
-  const { users, setChat, chat } = useUsers();
+  const { setChat, chat } = useUsers();
+  const { selectedUser } = useLocalSearchParams();
 
-  const chatDisabled = !message.trim() || !userId;
+  const parsedUser = selectedUser ? JSON.parse(selectedUser as string) : null;
+
+  const chatDisabled = !message.trim() || !parsedUser;
+
   const sendMsg = () => {
-    const selectedUser = users.find((user) => user.login.uuid === userId);
-
-    if (!selectedUser) return;
+    if (!parsedUser) return;
 
     const newMessage: ChatMessage = {
       id: String(Date.now()),
-      img: selectedUser.picture.thumbnail,
-      userId: selectedUser.login.uuid,
-      name: `${selectedUser.name.first} ${selectedUser.name.last}`,
+      userId: parsedUser.id,
+      img: parsedUser.avatar,
+      name: `${parsedUser.first_name} ${parsedUser.last_name}`,
       createdAt: Date.now(),
       msg: message,
     };
-
-    console.log(newMessage);
 
     setChat((prev) => [newMessage, ...prev]);
     setMessage("");
   };
 
+  const userMessages = chat.filter((item) => item.userId === parsedUser?.id);
+
   return (
     <SafeArea style={{ flex: 1 }}>
+      <ReturnHeader />
+
       <PageContainer style={{ flex: 1 }}>
-        <PageTitle style={{ marginTop: 24 }}>Histórico de mensagens</PageTitle>
+        <PageTitle>Chat com {parsedUser?.first_name}</PageTitle>
 
         <SearchInput
           value={message}
@@ -47,18 +51,18 @@ export default function ChatHistory() {
           placeholder="Digite sua mensagem..."
           icon="chatbubbles-outline"
         />
+
         <BtnRow>
-          <UserPicker value={userId} onChange={(id) => setUserId(id)} />
           <MainButton
             icon="send-outline"
-            text="Enviar mensagem"
+            text="Enviar nova mensagem"
             onPress={sendMsg}
             disabled={chatDisabled}
           />
         </BtnRow>
 
         <FlatList
-          data={chat}
+          data={userMessages}
           keyExtractor={(item) => item.id}
           style={{ flex: 1 }}
           renderItem={({ item }) => (

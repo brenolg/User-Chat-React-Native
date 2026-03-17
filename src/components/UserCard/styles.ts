@@ -6,6 +6,7 @@ export const Container = styled.View`
   padding: 16px;
   margin: 8px 0px;
   border-radius: 12px;
+  justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.card};
 `;
 
@@ -29,4 +30,13 @@ export const Email = styled.Text`
   font-size: 14px;
   color: ${({ theme }) => theme.colors.text};
   opacity: 0.7;
+`;
+export const ChatButton = styled.TouchableOpacity`
+  background-color: ${({ theme }) => theme.colors.primary};
+
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  align-items: center;
+  justify-content: center;
 `;

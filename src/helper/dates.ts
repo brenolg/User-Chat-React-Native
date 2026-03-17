@@ -1,4 +1,4 @@
-export function formatDateTime(dateString: string): string {
+export function formatDateTime(dateString: number): string {
   const date = new Date(dateString);
   const now = new Date();
 
