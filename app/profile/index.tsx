@@ -8,7 +8,7 @@ import ReturnHeader from "@/components/ReturnHeader";
 import { formatDate } from "@/helper/dates";
 import { PageTitle, SafeArea } from "@/theme/commonStyles";
 import User from "@/types/user";
-import { Container } from "./profileStyles";
+import { Container } from "./styles";
 
 export default function Profile() {
   const { user } = useLocalSearchParams();

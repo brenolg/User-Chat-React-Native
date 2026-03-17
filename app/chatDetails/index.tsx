@@ -9,7 +9,7 @@ import ReturnHeader from "@/components/ReturnHeader";
 import { useUsers } from "@/context/UsersContext";
 import ChatMessage from "@/types/chat";
 import { useLocalSearchParams } from "expo-router";
-import { BtnRow } from "./(tabs)/chatHistoryStyles";
+import { BtnRow } from "../(tabs)/chatHistory/styles";
 
 export default function ChatDetails() {
   const [message, setMessage] = useState("");

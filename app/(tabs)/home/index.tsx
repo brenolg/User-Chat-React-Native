@@ -12,13 +12,13 @@ import { router } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, RefreshControl } from "react-native";
 import { useTheme } from "styled-components";
-import { Header } from "./indexStyles";
+import { Header } from "./styles";
 
 type UsersResponse = {
   results: User[];
 };
 
-export default function ThemeSwitch() {
+export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showError, setShowError] = useState(false);
@@ -49,7 +49,6 @@ export default function ThemeSwitch() {
         },
       );
 
-      console.log(pageNumber);
       setUsers((prev) =>
         isRefresh ? response.data.results : [...prev, ...response.data.results],
       );
@@ -94,7 +93,7 @@ export default function ThemeSwitch() {
 
   const handlePress = useCallback((item: User) => {
     router.push({
-      pathname: "/profile",
+      pathname: "/profile" as const,
       params: { user: JSON.stringify(item) },
     });
   }, []);

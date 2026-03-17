@@ -8,7 +8,7 @@ import { FlatList } from "react-native";
 import ChatCard from "@/components/cards/ChatCard";
 import { useUsers } from "@/context/UsersContext";
 import ChatMessage from "@/types/chat";
-import { BtnRow } from "./chatHistoryStyles";
+import { BtnRow } from "./styles";
 
 export default function ChatHistory() {
   const [userId, setUserId] = useState<string>("");
@@ -26,11 +26,9 @@ export default function ChatHistory() {
       img: selectedUser.picture.thumbnail,
       userId: selectedUser.login.uuid,
       name: `${selectedUser.name.first} ${selectedUser.name.last}`,
-      createdAt: Date.now(),
+      createdAt: new Date().toLocaleString("pt-BR"),
       msg: message,
     };
-
-    console.log(newMessage);
 
     setChat((prev) => [newMessage, ...prev]);
     setMessage("");
