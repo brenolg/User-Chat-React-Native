@@ -9,7 +9,7 @@ import { PageContainer, SafeArea } from "@/theme/commonStyles";
 import User from "@/types/user";
 import axios, { isAxiosError } from "axios";
 import { router } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import { Header } from "./indexStyles";
 
@@ -21,28 +21,38 @@ export default function ThemeSwitch() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showError, setShowError] = useState(false);
-  const [search, setSearch] = useState("");
   const [gender, setGender] = useState<"all" | "male" | "female">("all");
   const [country, setCountry] = useState<"all" | "BR" | "US">("all");
   const { users, setUsers } = useUsers();
+  const [page, setPage] = useState(1);
+  const [loadingMore, setLoadingMore] = useState(false);
 
-  const fetchUsers = async () => {
+  const fetchUsers = async (pageNumber = 1, isRefresh = false) => {
     try {
-      setLoading(true);
+      if (isRefresh) {
+        setLoading(true);
+      } else {
+        setLoadingMore(true);
+      }
 
       const response = await axios.get<UsersResponse>(
         "https://randomuser.me/api",
         {
           params: {
-            page: 1,
+            page: pageNumber,
+            results: 20,
+            seed: "app", // 🔥 importante pra paginação funcionar
             nat: country === "all" ? undefined : country,
-            results: 10,
             gender: gender === "all" ? undefined : gender,
           },
         },
       );
-      console.log(country);
-      setUsers(response.data.results);
+
+      setUsers((prev) =>
+        isRefresh ? response.data.results : [...prev, ...response.data.results],
+      );
+
+      setPage(pageNumber);
     } catch (err) {
       let message = "Erro ao buscar usuários";
 
@@ -58,16 +68,47 @@ export default function ThemeSwitch() {
       setShowError(true);
     } finally {
       setLoading(false);
+      setLoadingMore(false);
     }
   };
+
   useEffect(() => {
-    //setUsers(usersMock.results);
-    fetchUsers();
+    fetchUsers(1, true);
   }, []);
 
-  const handleSearch = () => {
-    fetchUsers();
+  const loadMore = () => {
+    if (loadingMore) return;
+
+    fetchUsers(page + 1);
   };
+
+  const onRefresh = () => {
+    fetchUsers(1, true);
+  };
+
+  const handleSearch = () => {
+    fetchUsers(1, true);
+  };
+
+  const renderItem = useCallback(({ item }: { item: User }) => {
+    return (
+      <UserCard
+        user={{
+          id: item.login.uuid,
+          first_name: item.name.first,
+          last_name: item.name.last,
+          email: item.email,
+          avatar: item.picture.medium,
+        }}
+        onPress={() =>
+          router.push({
+            pathname: "/profile",
+            params: { user: JSON.stringify(item) },
+          })
+        }
+      />
+    );
+  }, []);
 
   return (
     <SafeArea>
@@ -97,32 +138,19 @@ export default function ThemeSwitch() {
         />
         <SearchButton onPress={handleSearch} text="Buscar" icon="search" />
 
-        {loading ? (
-          <PageLoading />
-        ) : (
-          <FlatList
-            data={users}
-            style={{ flex: 1 }}
-            keyExtractor={(item) => item.login.uuid}
-            renderItem={({ item }) => (
-              <UserCard
-                user={{
-                  id: item.login.uuid,
-                  first_name: item.name.first,
-                  last_name: item.name.last,
-                  email: item.email,
-                  avatar: item.picture.medium,
-                }}
-                onPress={() =>
-                  router.push({
-                    pathname: "/profile",
-                    params: { user: JSON.stringify(item) },
-                  })
-                }
-              />
-            )}
-          />
-        )}
+        <FlatList
+          data={users}
+          style={{ flex: 1 }}
+          keyExtractor={(item) => item.login.uuid}
+          renderItem={renderItem}
+          onEndReached={loadMore}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={loadingMore ? <PageLoading /> : null}
+          refreshing={loading}
+          onRefresh={onRefresh}
+          showsVerticalScrollIndicator={false}
+        />
+
         <ErrorModal
           visible={showError}
           message={error}
