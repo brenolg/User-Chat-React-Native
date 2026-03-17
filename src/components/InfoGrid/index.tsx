@@ -16,12 +16,16 @@ export default function InfoGrid({ data }: Props) {
       {data.map((item, index) =>
         index % 2 === 0 ? (
           <LeftItem key={index}>
-            <Value>{item.value}</Value>
+            <Value numberOfLines={1} ellipsizeMode="tail">
+              {item.value}
+            </Value>
             <Label>{item.label}</Label>
           </LeftItem>
         ) : (
           <RightItem key={index}>
-            <Value>{item.value}</Value>
+            <Value numberOfLines={1} ellipsizeMode="tail">
+              {item.value}
+            </Value>
             <Label>{item.label}</Label>
           </RightItem>
         ),
