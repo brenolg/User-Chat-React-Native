@@ -35,13 +35,13 @@ export default function ThemeSwitch() {
         {
           params: {
             page: 1,
-            nat: "BR",
+            nat: country === "all" ? undefined : country,
             results: 10,
             gender: gender === "all" ? undefined : gender,
           },
         },
       );
-      console.log(response.data.results);
+      console.log(country);
       setUsers(response.data.results);
     } catch (err) {
       let message = "Erro ao buscar usuários";
