@@ -6,14 +6,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "styled-components/native";
 
 import InfoGrid from "@/components/InfoGrid";
+import { PageTitle } from "@/theme/commonStyles";
 import User from "@/types/user";
-import {
-  BackButton,
-  Container,
-  Header,
-  HeaderTitle,
-  Name,
-} from "./profileStyles";
+import { BackButton, Container, Header, HeaderTitle } from "./profileStyles";
 
 export default function Profile() {
   const { user } = useLocalSearchParams();
@@ -50,9 +45,9 @@ export default function Profile() {
             }}
           />
 
-          <Name>
+          <PageTitle>
             {parsedUser.name.first} {parsedUser.name.last}
-          </Name>
+          </PageTitle>
 
           <InfoGrid
             data={[

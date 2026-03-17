@@ -6,7 +6,7 @@ export const Container = styled.View`
 
 export const SelectButton = styled.Pressable`
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 12px;
   background-color: ${({ theme }) => theme.colors.card};
 `;
@@ -21,8 +21,8 @@ export const Row = styled.View`
 `;
 
 export const Avatar = styled.Image`
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 16px;
   margin-right: 10px;
 `;

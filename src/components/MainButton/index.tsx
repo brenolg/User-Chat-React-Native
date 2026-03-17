@@ -4,13 +4,16 @@ import { Button, ButtonText } from "./styles";
 
 type Props = {
   onPress: () => void;
+  text: string;
+  icon?: React.ComponentProps<typeof Ionicons>["name"];
 };
 
-export default function SearchButton({ onPress }: Props) {
+export default function MainButton({ onPress, text, icon }: Props) {
   return (
     <Button onPress={onPress}>
-      <Ionicons name="search" size={18} color="#fff" />
-      <ButtonText>Buscar</ButtonText>
+      {icon && <Ionicons name={icon} size={18} color="#fff" />}
+
+      <ButtonText>{text}</ButtonText>
     </Button>
   );
 }

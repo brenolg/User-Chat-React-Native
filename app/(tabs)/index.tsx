@@ -1,19 +1,19 @@
 import ErrorModal from "@/components/ErrorModal";
 import GenderFilter from "@/components/GenderFilter";
-import PageLoading from "@/components/PageLoading";
 import SearchButton from "@/components/MainButton";
+import PageLoading from "@/components/PageLoading";
 import SearchInput from "@/components/SearchInput";
 import ThemeToggle from "@/components/ThemeToggle";
 import UserCard from "@/components/UserCard";
 import { useUsers } from "@/context/UsersContext";
-import { SafeArea } from "@/theme/commonStyles";
+import { PageContainer, SafeArea } from "@/theme/commonStyles";
 import User from "@/types/user";
 import axios, { isAxiosError } from "axios";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import usersMock from "../../src/mocks/usersMock";
-import { Container, Header } from "./indexStyles";
+import { Header } from "./indexStyles";
 
 type UsersResponse = {
   results: User[];
@@ -71,11 +71,11 @@ export default function ThemeSwitch() {
   return (
     <SafeArea>
       <Header>
-        <SearchButton onPress={handleSearch} />
+        <SearchButton onPress={handleSearch} text="Buscar" icon="search" />
         <ThemeToggle />
       </Header>
 
-      <Container>
+      <PageContainer>
         <SearchInput
           value={search}
           onChangeText={setSearch}
@@ -116,7 +116,7 @@ export default function ThemeSwitch() {
           message={error}
           onClose={() => setShowError(false)}
         />
-      </Container>
+      </PageContainer>
     </SafeArea>
   );
 }

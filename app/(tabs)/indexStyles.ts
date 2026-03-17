@@ -17,12 +17,3 @@ export const HeaderTitle = styled.Text`
   font-weight: bold;
   color: ${({ theme }) => theme.colors.text};
 `;
-
-export const Container = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 16px 36px;
-  gap: 16px;
-  background-color: ${({ theme }) => theme.colors.background};
-`;

@@ -1,15 +1,21 @@
+import MainButton from "@/components/MainButton";
 import SearchInput from "@/components/SearchInput";
 import UserPicker from "@/components/UserSelect";
-import { SafeArea } from "@/theme/commonStyles";
+import { PageContainer, PageTitle, SafeArea } from "@/theme/commonStyles";
 import React, { useState } from "react";
 import { ScrollView } from "react-native";
 import { useTheme } from "styled-components/native";
-import { Container, Name } from "../profileStyles";
+
+import { BtnRow } from "./chatHistoryStyles";
 
 export default function Profile() {
   const theme = useTheme();
   const [userId, setUserId] = useState<string>("");
   const [message, setMessage] = useState("");
+
+  const sendMsg = () => {
+    console.log("search, gender");
+  };
 
   return (
     <SafeArea>
@@ -17,16 +23,24 @@ export default function Profile() {
         showsVerticalScrollIndicator={false}
         style={{ flex: 1, backgroundColor: theme.colors.background }}
       >
-        <Container>
-          <Name>Histórico de mensagens</Name>
+        <PageContainer>
+          <PageTitle>Histórico de mensagens</PageTitle>
 
           <SearchInput
             value={message}
             onChangeText={setMessage}
-            placeholder="Escolha um destinatário"
+            placeholder="Digite sua mensagem..."
+            icon="chatbubbles-outline"
           />
-          <UserPicker value={userId} onChange={(id) => setUserId(id)} />
-        </Container>
+          <BtnRow>
+            <UserPicker value={userId} onChange={(id) => setUserId(id)} />
+            <MainButton
+              icon="send-outline"
+              text="Enviar mensagem"
+              onPress={sendMsg}
+            />
+          </BtnRow>
+        </PageContainer>
       </ScrollView>
     </SafeArea>
   );

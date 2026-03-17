@@ -26,10 +26,3 @@ export const Container = styled.View`
   padding-top: 24px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
-
-export const Name = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 24px;
-  color: ${({ theme }) => theme.colors.text};
-`;
