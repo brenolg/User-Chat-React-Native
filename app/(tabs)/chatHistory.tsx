@@ -16,9 +16,8 @@ export default function Profile() {
   const [message, setMessage] = useState("");
   const { users, setChat, chat } = useUsers();
 
+  const chatDisabled = !message.trim() || !userId;
   const sendMsg = () => {
-    if (!message || !userId) return;
-
     const selectedUser = users.find((user) => user.login.uuid === userId);
 
     if (!selectedUser) return;
@@ -59,6 +58,7 @@ export default function Profile() {
               icon="send-outline"
               text="Enviar mensagem"
               onPress={sendMsg}
+              disabled={chatDisabled}
             />
           </BtnRow>
         </PageContainer>
