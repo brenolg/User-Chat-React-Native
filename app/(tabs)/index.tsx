@@ -1,10 +1,10 @@
 import ErrorModal from "@/components/ErrorModal";
-import GenderFilter from "@/components/GenderFilter";
-import SearchButton from "@/components/MainButton";
 import PageLoading from "@/components/PageLoading";
-import SearchInput from "@/components/SearchInput";
-import ThemeToggle from "@/components/ThemeToggle";
-import UserCard from "@/components/UserCard";
+import SearchButton from "@/components/buttons/MainButton";
+import GenderFilter from "@/components/buttons/MainButton/GenderFilter";
+import UserCard from "@/components/cards/UserCard";
+import SearchInput from "@/components/inputs/SearchInput";
+import ThemeToggle from "@/components/inputs/ThemeToggle";
 import { useUsers } from "@/context/UsersContext";
 import { PageContainer, SafeArea } from "@/theme/commonStyles";
 import User from "@/types/user";
@@ -12,7 +12,6 @@ import axios, { isAxiosError } from "axios";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { FlatList } from "react-native";
-import usersMock from "../../src/mocks/usersMock";
 import { Header } from "./indexStyles";
 
 type UsersResponse = {
@@ -60,8 +59,8 @@ export default function ThemeSwitch() {
         setLoading(false);
       }
     };
-    setUsers(usersMock.results);
-    //fetchUsers();
+    //setUsers(usersMock.results);
+    fetchUsers();
   }, []);
 
   const handleSearch = () => {

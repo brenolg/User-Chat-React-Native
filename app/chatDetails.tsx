@@ -1,10 +1,10 @@
-import MainButton from "@/components/MainButton";
-import SearchInput from "@/components/SearchInput";
+import MainButton from "@/components/buttons/MainButton";
+import SearchInput from "@/components/inputs/SearchInput";
 import { PageContainer, PageTitle, SafeArea } from "@/theme/commonStyles";
 import React, { useState } from "react";
 import { FlatList } from "react-native";
 
-import ChatCard from "@/components/ChatCard";
+import ChatCard from "@/components/cards/ChatCard";
 import ReturnHeader from "@/components/ReturnHeader";
 import { useUsers } from "@/context/UsersContext";
 import ChatMessage from "@/types/chat";

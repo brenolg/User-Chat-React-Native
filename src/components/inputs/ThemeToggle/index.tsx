@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { useTheme as useStyledTheme } from "styled-components/native";
-import { useTheme } from "../../theme/ThemeProvider";
+import { useTheme } from "../../../theme/ThemeProvider";
 import { Container, StyledSwitch } from "./styles";
 
 export default function ThemeToggle() {

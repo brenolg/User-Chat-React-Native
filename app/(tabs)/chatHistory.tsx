@@ -1,11 +1,11 @@
-import MainButton from "@/components/MainButton";
-import SearchInput from "@/components/SearchInput";
-import UserPicker from "@/components/UserSelect";
+import MainButton from "@/components/buttons/MainButton";
+import SearchInput from "@/components/inputs/SearchInput";
+import UserPicker from "@/components/inputs/UserSelect";
 import { PageContainer, PageTitle, SafeArea } from "@/theme/commonStyles";
 import React, { useState } from "react";
 import { FlatList } from "react-native";
 
-import ChatCard from "@/components/ChatCard";
+import ChatCard from "@/components/cards/ChatCard";
 import { useUsers } from "@/context/UsersContext";
 import ChatMessage from "@/types/chat";
 import { BtnRow } from "./chatHistoryStyles";
