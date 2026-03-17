@@ -17,7 +17,7 @@ export const PageContainer = styled.View`
 export const PageTitle = styled.Text`
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 24px;
+  margin-bottom: 18px;
   text-align: center;
   color: ${({ theme }) => theme.colors.text};
 `;

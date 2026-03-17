@@ -39,22 +39,6 @@ export default function ChatHistory() {
       <PageContainer style={{ flex: 1 }}>
         <PageTitle style={{ marginTop: 24 }}>Histórico de mensagens</PageTitle>
 
-        <SearchInput
-          value={message}
-          onChangeText={setMessage}
-          placeholder="Digite sua mensagem..."
-          icon="chatbubbles-outline"
-        />
-        <BtnRow>
-          <UserPicker value={userId} onChange={(id) => setUserId(id)} />
-          <MainButton
-            icon="send-outline"
-            text="Enviar mensagem"
-            onPress={sendMsg}
-            disabled={chatDisabled}
-          />
-        </BtnRow>
-
         <FlatList
           data={chat}
           keyExtractor={(item) => item.id}
@@ -70,6 +54,21 @@ export default function ChatHistory() {
           contentContainerStyle={{ paddingBottom: 10 }}
           showsVerticalScrollIndicator={false}
         />
+        <SearchInput
+          value={message}
+          onChangeText={setMessage}
+          placeholder="Digite sua mensagem..."
+          icon="chatbubbles-outline"
+        />
+        <BtnRow>
+          <UserPicker value={userId} onChange={(id) => setUserId(id)} />
+          <MainButton
+            icon="send-outline"
+            text="Enviar mensagem"
+            onPress={sendMsg}
+            disabled={chatDisabled}
+          />
+        </BtnRow>
       </PageContainer>
     </SafeArea>
   );

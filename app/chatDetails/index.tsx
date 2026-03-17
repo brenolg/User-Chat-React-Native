@@ -47,22 +47,6 @@ export default function ChatDetails() {
       <PageContainer style={{ flex: 1 }}>
         <PageTitle>Chat com {parsedUser?.name.first}</PageTitle>
 
-        <SearchInput
-          value={message}
-          onChangeText={setMessage}
-          placeholder="Digite sua mensagem..."
-          icon="chatbubbles-outline"
-        />
-
-        <BtnRow>
-          <MainButton
-            icon="send-outline"
-            text="Enviar nova mensagem"
-            onPress={sendMsg}
-            disabled={chatDisabled}
-          />
-        </BtnRow>
-
         <FlatList
           data={userMessages}
           keyExtractor={(item) => item.id}
@@ -78,6 +62,22 @@ export default function ChatDetails() {
           contentContainerStyle={{ paddingBottom: 10 }}
           showsVerticalScrollIndicator={false}
         />
+
+        <SearchInput
+          value={message}
+          onChangeText={setMessage}
+          placeholder="Digite sua mensagem..."
+          icon="chatbubbles-outline"
+        />
+
+        <BtnRow>
+          <MainButton
+            icon="send-outline"
+            text="Enviar nova mensagem"
+            onPress={sendMsg}
+            disabled={chatDisabled}
+          />
+        </BtnRow>
       </PageContainer>
     </SafeArea>
   );
