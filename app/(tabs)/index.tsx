@@ -1,9 +1,8 @@
 import ErrorModal from "@/components/ErrorModal";
 import PageLoading from "@/components/PageLoading";
 import SearchButton from "@/components/buttons/MainButton";
-import GenderFilter from "@/components/buttons/MainButton/GenderFilter";
+import Filter from "@/components/buttons/MainButton/Filter";
 import UserCard from "@/components/cards/UserCard";
-import SearchInput from "@/components/inputs/SearchInput";
 import ThemeToggle from "@/components/inputs/ThemeToggle";
 import { useUsers } from "@/context/UsersContext";
 import { PageContainer, SafeArea } from "@/theme/commonStyles";
@@ -24,6 +23,7 @@ export default function ThemeSwitch() {
   const [showError, setShowError] = useState(false);
   const [search, setSearch] = useState("");
   const [gender, setGender] = useState<"all" | "male" | "female">("all");
+  const [country, setCountry] = useState<"all" | "BR" | "US">("all");
   const { users, setUsers } = useUsers();
 
   const fetchUsers = async () => {
@@ -72,19 +72,30 @@ export default function ThemeSwitch() {
   return (
     <SafeArea>
       <Header>
-        <SearchButton onPress={handleSearch} text="Buscar" icon="search" />
         <ThemeToggle />
       </Header>
 
       <PageContainer>
-        <SearchInput
-          value={search}
-          onChangeText={setSearch}
-          placeholder="Digite uma mensagem"
-          icon="search"
+        <Filter
+          value={gender}
+          onChange={setGender}
+          options={[
+            { label: "Todos", value: "all", icon: "people" },
+            { label: "Homens", value: "male", icon: "male" },
+            { label: "Mulheres", value: "female", icon: "female" },
+          ]}
         />
 
-        <GenderFilter value={gender} onChange={setGender} />
+        <Filter
+          value={country}
+          onChange={setCountry}
+          options={[
+            { label: "Todos", value: "all", icon: "globe-outline" },
+            { label: "Brasil", value: "BR", icon: "location-outline" },
+            { label: "EUA", value: "US", icon: "location-outline" },
+          ]}
+        />
+        <SearchButton onPress={handleSearch} text="Buscar" icon="search" />
 
         {loading ? (
           <PageLoading />

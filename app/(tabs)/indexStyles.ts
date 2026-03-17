@@ -1,13 +1,14 @@
 import styled from "styled-components/native";
 
 export const Header = styled.View`
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   flex-direction: row;
   display: flex;
-  padding: 12px 36px;
+
+  border-top-width: 1px;
   border-bottom-width: 1px;
-  border-bottom-color: ${({ theme }) => theme.colors.border};
+  border-color: ${({ theme }) => theme.colors.border};
   background-color: ${({ theme }) => theme.colors.card};
   position: relative;
 `;
