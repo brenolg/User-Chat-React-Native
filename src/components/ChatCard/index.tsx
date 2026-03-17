@@ -1,13 +1,15 @@
 import { formatDateTime } from "@/helper/dates";
-import { PageTitle } from "@/theme/commonStyles";
 import React from "react";
 import {
   Avatar,
   CardContainer,
   Content,
   DateText,
+  Divider,
   HeaderRow,
+  ImgRow,
   MessageText,
+  NameText,
 } from "./styles";
 
 type Props = {
@@ -20,14 +22,16 @@ type Props = {
 export default function ChatCard({ img, name, msg, createdAt }: Props) {
   return (
     <CardContainer>
-      <Avatar source={{ uri: img }} />
-
       <Content>
         <HeaderRow>
-          <PageTitle>{name}</PageTitle>
+          <ImgRow>
+            <Avatar source={{ uri: img }} />
+            <NameText>{name}</NameText>
+          </ImgRow>
           <DateText>{formatDateTime(createdAt)}</DateText>
         </HeaderRow>
 
+        <Divider />
         <MessageText>{msg}</MessageText>
       </Content>
     </CardContainer>

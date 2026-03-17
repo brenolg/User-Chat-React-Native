@@ -4,24 +4,28 @@ export const CardContainer = styled.View`
   flex-direction: row;
   align-items: flex-start;
   gap: 10px;
-
   padding: 12px;
   border-radius: 12px;
   margin-top: 10px;
-
   background-color: ${({ theme }) => theme.colors.card};
 `;
 
 export const Avatar = styled.Image`
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
   border-radius: 20px;
+  margin-right: 6px;
 `;
 
 export const Content = styled.View`
   flex: 1;
+  gap: 5px;
 `;
 
+export const Divider = styled.View`
+  height: 1px;
+  background-color: ${({ theme }) => theme.colors.border};
+`;
 export const DateText = styled.Text`
   color: ${({ theme }) => theme.colors.secondaryText};
   font-size: 12px;
@@ -29,9 +33,16 @@ export const DateText = styled.Text`
 
 export const HeaderRow = styled.View`
   flex-direction: row;
-  justify-content: space-between; /* 👈 nome esquerda, data direita */
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 4px;
+  height: 28px;
+`;
+
+export const ImgRow = styled.View`
+  flex-direction: row;
+
+  align-items: center;
+  height: 28px;
 `;
 export const NameText = styled.Text`
   color: ${({ theme }) => theme.colors.primary};
