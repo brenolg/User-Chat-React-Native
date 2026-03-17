@@ -41,13 +41,14 @@ export default function ThemeSwitch() {
           params: {
             page: pageNumber,
             results: 20,
-            seed: "app", // 🔥 importante pra paginação funcionar
+            seed: "app",
             nat: country === "all" ? undefined : country,
             gender: gender === "all" ? undefined : gender,
           },
         },
       );
 
+      console.log(pageNumber);
       setUsers((prev) =>
         isRefresh ? response.data.results : [...prev, ...response.data.results],
       );
@@ -77,7 +78,7 @@ export default function ThemeSwitch() {
   }, []);
 
   const loadMore = () => {
-    if (loadingMore) return;
+    if (loadingMore || loading) return;
 
     fetchUsers(page + 1);
   };
@@ -93,13 +94,7 @@ export default function ThemeSwitch() {
   const renderItem = useCallback(({ item }: { item: User }) => {
     return (
       <UserCard
-        user={{
-          id: item.login.uuid,
-          first_name: item.name.first,
-          last_name: item.name.last,
-          email: item.email,
-          avatar: item.picture.medium,
-        }}
+        user={item}
         onPress={() =>
           router.push({
             pathname: "/profile",
@@ -140,7 +135,6 @@ export default function ThemeSwitch() {
 
         <FlatList
           data={users}
-          style={{ flex: 1 }}
           keyExtractor={(item) => item.login.uuid}
           renderItem={renderItem}
           onEndReached={loadMore}
@@ -148,6 +142,9 @@ export default function ThemeSwitch() {
           ListFooterComponent={loadingMore ? <PageLoading /> : null}
           refreshing={loading}
           onRefresh={onRefresh}
+          initialNumToRender={10}
+          maxToRenderPerBatch={10}
+          windowSize={5}
           showsVerticalScrollIndicator={false}
         />
 

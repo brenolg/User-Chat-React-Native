@@ -1,5 +1,4 @@
 type User = {
-  id: string;
   gender: string;
   email: string;
   phone: string;
@@ -33,12 +32,22 @@ type User = {
       latitude: string;
       longitude: string;
     };
+
+    timezone: {
+      offset: string;
+      description: string;
+    };
   };
 
   picture: {
     large: string;
     medium: string;
     thumbnail: string;
+  };
+
+  id: {
+    name: string;
+    value: string | null;
   };
 };
 
