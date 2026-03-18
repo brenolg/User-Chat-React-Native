@@ -7,8 +7,6 @@ export const SafeArea = styled(SafeAreaView)`
 `;
 
 export const PageContainer = styled.View`
-  flex: 1;
-
   justify-content: flex-start;
   padding: 16px 36px;
   gap: 12px;

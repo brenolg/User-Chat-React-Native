@@ -1,7 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { Dispatch, SetStateAction } from "react";
+import { ScrollView } from "react-native";
 import { useTheme } from "styled-components/native";
-import { Container, FilterButton, FilterText } from "./styles";
+import { FilterButton, FilterText } from "./styles";
 
 type Option<T> = {
   label: string;
@@ -19,7 +20,17 @@ export default function Filter<T>({ value, onChange, options }: Props<T>) {
   const theme = useTheme();
 
   return (
-    <Container>
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{
+        flexGrow: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 10,
+      }}
+    >
       {options.map((option) => {
         const active = value === option.value;
 
@@ -42,6 +53,6 @@ export default function Filter<T>({ value, onChange, options }: Props<T>) {
           </FilterButton>
         );
       })}
-    </Container>
+    </ScrollView>
   );
 }
