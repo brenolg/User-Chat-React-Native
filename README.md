@@ -1,50 +1,123 @@
-# Welcome to your Expo app 👋
+# 🚀 People App (React Native + Expo)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicação mobile desenvolvida com **React Native (Expo)** que permite explorar, visualizar e interagir com uma lista de usuários consumindo a API pública **Random User**.
 
-## Get started
+O app foi construído com foco em **experiência do usuário, performance e organização de código**.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 📱 Funcionalidades
 
-2. Start the app
+### 👥 Lista de Usuários
+- Listagem de usuários com `FlatList`
+- Paginação (infinite scroll)
+- Pull-to-refresh
+- Filtros por:
+  - Gênero
+  - Nacionalidade
+- Tratamento de loading e erros
+- Navegação para perfil do usuário
+- 
+- ### Card de usuário
+- Exibição de informações principais:
+  - Foto (avatar)
+  - Nome completo
+  - Email
+- Texto com truncamento (`numberOfLines`) para evitar quebra de layout
+- Estrutura otimizada para listas grandes
+- Ações disponíveis:
+  - Clique no card → navega para tela de perfil
+  - Botão lateral → acesso direto ao chat com o usuário
+- Uso de `React.memo` para evitar re-renderizações desnecessárias
+- Uso de `useCallback` para otimização de handlers
+- Layout responsivo e reutilizável
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+### 👤 Perfil do Usuário
+- Exibição de:
+  - Foto
+  - Nome completo
+  - Email
+  - Telefone / celular
+  - Idade e data de nascimento
+  - Localização completa
+- Layout organizado em grid reutilizável
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### 💬 Chat do Usuário
 
-## Get a fresh project
+#### 📄 Chat Details (por usuário)
+- Cada usuário possui um chat individual
+- As mensagens são **filtradas automaticamente pelo id**
+- Exibe apenas o histórico da conversa com o usuário selecionado
+- Campo de input fixo na parte inferior
+- Cada mensagem exibe:
+  - Nome
+  - Foto
+  - Conteúdo
+  - Data/hora
 
-When you're ready, run:
+#### 📚 Histórico geral de mensagens
+- Lista com todas as mensagens enviadas
+- Permite enviar mensagens para qualquer usuário
+- Seleção de usuário via dropdown 
+
+---
+
+### 🎨 UI / UX
+- Suporte a **tema dark/light**
+- Componentes reutilizáveis
+- Estados de:
+  - Loading
+  - EmptyState
+  - Error
+
+---
+
+## 🧠 Decisões Técnicas
+
+- Uso de **Context API** para:
+  - Gerenciar usuários globalmente
+  - Controlar histórico de chat
+
+- Uso de **FlatList** com otimizações:
+  - `getItemLayout`
+  - `useCallback`
+  - `React.memo`
+
+- Separação de responsabilidades:
+  - Componentes reutilizáveis (Card, Input, Button, EmptyState)
+  - Helpers (formatação de data)
+
+- Tipagem com **TypeScript** para maior segurança
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- React Native (Expo SDK 50+)
+- TypeScript
+- React Navigation
+- Axios
+- Styled-components
+- Context API
+- Hooks (useState, useEffect, useCallback)
+
+---
+
+## 📡 API
+
+Os dados são consumidos da API pública:
+
+👉 https://randomuser.me/
+
+---
+
+## ▶️ Como rodar o projeto
+
+### 1. Clone o repositório
 
 ```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+git clone https://github.com/brenolg/User-Chat-React-Native.git
