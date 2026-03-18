@@ -1,7 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { useTheme } from "styled-components/native";
+
 import { BackButton, Header, HeaderTitle } from "./styles";
 
 type Props = {
@@ -10,10 +11,11 @@ type Props = {
 
 export default function ReturnHeader({ title = "Voltar" }: Props) {
   const theme = useTheme();
+  const navigation = useNavigation();
 
   return (
     <Header>
-      <BackButton onPress={() => router.back()}>
+      <BackButton onPress={() => navigation.goBack()}>
         <Ionicons name="chevron-back" size={28} color={theme.colors.primary} />
       </BackButton>
 

@@ -1,33 +1,31 @@
 import MainButton from "@/components/buttons/MainButton";
 import SearchInput from "@/components/inputs/SearchInput";
-import { PageContainer, PageTitle, SafeArea } from "@/theme/commonStyles";
+import UserPicker from "@/components/inputs/UserSelect";
+import { PageContainer, PageTitle, SafeArea } from "@/styles/commonStyles";
 import React, { useState } from "react";
 import { FlatList } from "react-native";
 
 import ChatCard from "@/components/cards/ChatCard";
-import ReturnHeader from "@/components/ReturnHeader";
 import { useUsers } from "@/context/UsersContext";
 import ChatMessage from "@/types/chat";
-import { useLocalSearchParams } from "expo-router";
-import { BtnRow } from "../(tabs)/chatHistory/styles";
+import { BtnRow } from "../../styles/commonStyles";
 
-export default function ChatDetails() {
+export default function ChatHistory() {
+  const [userId, setUserId] = useState<string>("");
   const [message, setMessage] = useState("");
-  const { setChat, chat } = useUsers();
-  const { selectedUser } = useLocalSearchParams();
+  const { users, setChat, chat } = useUsers();
 
-  const parsedUser = selectedUser ? JSON.parse(selectedUser as string) : null;
-
-  const chatDisabled = !message.trim() || !parsedUser;
-
+  const chatDisabled = !message.trim() || !userId;
   const sendMsg = () => {
-    if (!parsedUser) return;
+    const selectedUser = users.find((user) => user.login.uuid === userId);
+
+    if (!selectedUser) return;
 
     const newMessage: ChatMessage = {
       id: String(Date.now()),
-      userId: parsedUser.login.uuid,
-      img: parsedUser.picture.thumbnail,
-      name: `${parsedUser.name.first} ${parsedUser.name.last}`,
+      img: selectedUser.picture.thumbnail,
+      userId: selectedUser.login.uuid,
+      name: `${selectedUser.name.first} ${selectedUser.name.last}`,
       createdAt: new Date().toString(),
       msg: message,
     };
@@ -36,19 +34,13 @@ export default function ChatDetails() {
     setMessage("");
   };
 
-  const userMessages = chat.filter(
-    (item) => item.userId === parsedUser?.login.uuid,
-  );
-
   return (
     <SafeArea style={{ flex: 1 }}>
-      <ReturnHeader />
-
       <PageContainer style={{ flex: 1 }}>
-        <PageTitle>Chat com {parsedUser?.name.first}</PageTitle>
+        <PageTitle style={{ marginTop: 24 }}>Histórico de mensagens</PageTitle>
 
         <FlatList
-          data={userMessages}
+          data={chat}
           keyExtractor={(item) => item.id}
           style={{ flex: 1 }}
           renderItem={({ item }) => (
@@ -62,18 +54,17 @@ export default function ChatDetails() {
           contentContainerStyle={{ paddingBottom: 10 }}
           showsVerticalScrollIndicator={false}
         />
-
         <SearchInput
           value={message}
           onChangeText={setMessage}
           placeholder="Digite sua mensagem..."
           icon="chatbubbles-outline"
         />
-
         <BtnRow>
+          <UserPicker value={userId} onChange={(id) => setUserId(id)} />
           <MainButton
             icon="send-outline"
-            text="Enviar nova mensagem"
+            text="Enviar mensagem"
             onPress={sendMsg}
             disabled={chatDisabled}
           />

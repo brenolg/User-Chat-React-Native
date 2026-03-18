@@ -1,9 +1,16 @@
+import { RootStackParamList } from "@/types/RootStackParamList";
 import User from "@/types/user";
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useCallback } from "react";
 import { TouchableOpacity } from "react-native";
 import { Avatar, ChatButton, Container, Email, Info, Name } from "./styles";
+
+type NavigationProps = NativeStackNavigationProp<
+  RootStackParamList,
+  "ChatDetails"
+>;
 
 type Props = {
   user: User;
@@ -11,14 +18,13 @@ type Props = {
 };
 
 function UserCard({ user, onPress }: Props) {
+  const navigation = useNavigation<NavigationProps>();
+
   const handleGoToChat = useCallback(() => {
-    router.push({
-      pathname: "/chatDetails",
-      params: {
-        selectedUser: JSON.stringify(user),
-      },
+    navigation.navigate("ChatDetails", {
+      selectedUser: user,
     });
-  }, [user]);
+  }, [navigation, user]);
 
   return (
     <TouchableOpacity onPress={onPress}>

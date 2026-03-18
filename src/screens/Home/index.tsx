@@ -1,14 +1,16 @@
 import ErrorModal from "@/components/ErrorModal";
 import PageLoading from "@/components/PageLoading";
+import Filter from "@/components/buttons/Filter";
 import SearchButton from "@/components/buttons/MainButton";
-import Filter from "@/components/buttons/MainButton/Filter";
 import UserCard from "@/components/cards/UserCard";
 import ThemeToggle from "@/components/inputs/ThemeToggle";
 import { useUsers } from "@/context/UsersContext";
-import { PageContainer, SafeArea } from "@/theme/commonStyles";
+import { PageContainer, SafeArea } from "@/styles/commonStyles";
+import { RootStackParamList } from "@/types/RootStackParamList";
 import User from "@/types/user";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import axios, { isAxiosError } from "axios";
-import { router } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, RefreshControl } from "react-native";
 import { useTheme } from "styled-components";
@@ -17,6 +19,7 @@ import { Header } from "./styles";
 type UsersResponse = {
   results: User[];
 };
+type NavigationProps = NativeStackNavigationProp<RootStackParamList, "Profile">;
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -28,6 +31,7 @@ export default function Home() {
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
   const theme = useTheme();
+  const navigation = useNavigation<NavigationProps>();
 
   const fetchUsers = async (pageNumber = 1, isRefresh = false) => {
     try {
@@ -91,12 +95,14 @@ export default function Home() {
     fetchUsers(1, true);
   };
 
-  const handlePress = useCallback((item: User) => {
-    router.push({
-      pathname: "/profile" as const,
-      params: { user: JSON.stringify(item) },
-    });
-  }, []);
+  const handlePress = useCallback(
+    (item: User) => {
+      navigation.navigate("Profile", {
+        user: item,
+      });
+    },
+    [navigation],
+  );
 
   const renderItem = useCallback(
     ({ item }: { item: User }) => {

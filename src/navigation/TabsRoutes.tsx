@@ -1,12 +1,17 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useTheme } from "styled-components/native";
 
-export default function TabLayout() {
+import ChatHistory from "../screens/ChatHistory";
+import Home from "../screens/Home";
+
+const Tab = createBottomTabNavigator();
+
+export default function TabsRoutes() {
   const theme = useTheme();
 
   return (
-    <Tabs
+    <Tab.Navigator
       screenOptions={{
         headerShown: false,
 
@@ -17,12 +22,14 @@ export default function TabLayout() {
           paddingBottom: 10,
           borderTopColor: theme.colors.border,
         },
+
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: theme.colors.secondaryText,
       }}
     >
-      <Tabs.Screen
-        name="home/index"
+      <Tab.Screen
+        name="Home"
+        component={Home}
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => (
@@ -31,8 +38,9 @@ export default function TabLayout() {
         }}
       />
 
-      <Tabs.Screen
-        name="chatHistory/index"
+      <Tab.Screen
+        name="ChatHistory"
+        component={ChatHistory}
         options={{
           title: "Chat",
           tabBarIcon: ({ color }) => (
@@ -40,6 +48,6 @@ export default function TabLayout() {
           ),
         }}
       />
-    </Tabs>
+    </Tab.Navigator>
   );
 }

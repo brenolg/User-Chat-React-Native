@@ -21,3 +21,10 @@ export const PageTitle = styled.Text`
   text-align: center;
   color: ${({ theme }) => theme.colors.text};
 `;
+export const BtnRow = styled.View`
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-around;
+  flex-wrap: wrap;
+`;
