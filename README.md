@@ -1,4 +1,4 @@
-# 🚀 People App (React Native + Expo)
+# People App (React Native + Expo)
 
 Aplicação mobile desenvolvida com **React Native (Expo)** que permite explorar, visualizar e interagir com uma lista de usuários consumindo a API pública **Random User**.
 
@@ -104,7 +104,30 @@ Os dados são consumidos da API pública:
 
 ## ▶️ Como rodar o projeto
 
-### 1. Clone o repositório
+1. Clone o repositório
 
 ```bash
 git clone https://github.com/brenolg/User-Chat-React-Native.git
+```
+2. Acesse a pasta do projeto
+```bash
+cd User-Chat-React-Native
+```
+3. Instale as dependências
+```bash
+npm install
+```
+4. Inicie o projeto
+```bash
+npx expo start
+```
+
+5. Execute no dispositivo
+
+Você pode rodar o app de várias formas:
+
+📱 Celular (recomendado)
+
+Instale o app Expo Go
+
+Escaneie o QR Code exibido no terminal com o Expo ou aperte a letra a no terminal e emular com Android Studio
