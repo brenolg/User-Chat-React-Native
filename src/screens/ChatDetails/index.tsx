@@ -1,5 +1,6 @@
 import MainButton from "@/components/buttons/MainButton";
 import ChatCard from "@/components/cards/ChatCard";
+import EmptyState from "@/components/EmptyState";
 import SearchInput from "@/components/inputs/SearchInput";
 import ReturnHeader from "@/components/ReturnHeader";
 import { useUsers } from "@/context/UsersContext";
@@ -62,6 +63,13 @@ export default function ChatDetails() {
           )}
           contentContainerStyle={{ paddingBottom: 10 }}
           showsVerticalScrollIndicator={false}
+          ListEmptyComponent={
+            <EmptyState
+              title="Sem mensagens"
+              description="Envie a primeira mensagem para iniciar a conversa"
+              icon="chatbubbles-outline"
+            />
+          }
         />
 
         <SearchInput

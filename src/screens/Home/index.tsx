@@ -1,3 +1,4 @@
+import EmptyState from "@/components/EmptyState";
 import ErrorModal from "@/components/ErrorModal";
 import PageLoading from "@/components/PageLoading";
 import Filter from "@/components/buttons/Filter";
@@ -152,6 +153,13 @@ export default function Home() {
           maxToRenderPerBatch={10}
           windowSize={5}
           showsVerticalScrollIndicator={false}
+          ListEmptyComponent={
+            <EmptyState
+              title="Nenhum usuário encontrado"
+              description="Tente ajustar os filtros ou buscar novamente"
+              icon="people-outline"
+            />
+          }
           getItemLayout={(_, index) => ({
             length: 98,
             offset: 98 * index,

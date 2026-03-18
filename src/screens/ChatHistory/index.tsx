@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { FlatList } from "react-native";
 
 import ChatCard from "@/components/cards/ChatCard";
+import EmptyState from "@/components/EmptyState";
 import { useUsers } from "@/context/UsersContext";
 import ChatMessage from "@/types/chat";
 import { BtnRow } from "../../styles/commonStyles";
@@ -51,6 +52,13 @@ export default function ChatHistory() {
               createdAt={item.createdAt}
             />
           )}
+          ListEmptyComponent={
+            <EmptyState
+              title="Sem mensagens"
+              description="Envie a primeira mensagem para iniciar a conversa"
+              icon="chatbubbles-outline"
+            />
+          }
           contentContainerStyle={{ paddingBottom: 10 }}
           showsVerticalScrollIndicator={false}
         />
