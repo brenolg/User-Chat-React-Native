@@ -29,7 +29,7 @@ export default function Filter<T>({ value, onChange, options }: Props<T>) {
         gap: 12,
       }}
       style={{
-        alignSelf: "center", // 🔥 centraliza o bloco inteiro
+        alignSelf: "center",
       }}
     >
       {options.map((option) => {
