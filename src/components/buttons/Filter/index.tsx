@@ -24,11 +24,12 @@ export default function Filter<T>({ value, onChange, options }: Props<T>) {
       horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{
-        flexGrow: 1,
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "center",
-        gap: 10,
+        gap: 12,
+      }}
+      style={{
+        alignSelf: "center", // 🔥 centraliza o bloco inteiro
       }}
     >
       {options.map((option) => {

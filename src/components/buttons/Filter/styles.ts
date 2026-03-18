@@ -15,6 +15,7 @@ export const FilterButton = styled.Pressable<{ active: boolean }>`
   background-color: ${({ theme, active }) =>
     active ? theme.colors.primary : theme.colors.card};
   flex-shrink: 0;
+  min-height: 40px;
 `;
 
 export const FilterText = styled.Text<{ active: boolean }>`
