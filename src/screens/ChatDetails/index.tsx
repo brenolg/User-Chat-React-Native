@@ -15,19 +15,25 @@ import { BtnRow } from "../../styles/commonStyles";
 type RouteProps = RouteProp<RootStackParamList, "ChatDetails">;
 
 export default function ChatDetails() {
-  const [message, setMessage] = useState("");
-  const { setChat, chat } = useUsers();
-  const route = useRoute<RouteProps>();
+  const [message, setMessage] = useState(""); // Mensagem digitada
+
+  const { setChat, chat } = useUsers(); // Contexto global de chat
+
+  const route = useRoute<RouteProps>(); // Acesso aos parâmetros da rota
   const { selectedUser } = route.params;
 
-  const chatDisabled = !message.trim() || !selectedUser;
+  const chatDisabled = !message.trim() || !selectedUser; // Desabilita envio se não houver mensagem ou usuário
 
+  /**
+   * Função responsável por enviar uma nova mensagem
+   */
   const sendMsg = () => {
     if (!selectedUser) return;
 
+    // Criação da nova mensagem
     const newMessage: ChatMessage = {
       id: String(Date.now()),
-      userId: selectedUser.login.uuid,
+      userId: selectedUser.login.uuid, // identifica o usuário
       img: selectedUser.picture.thumbnail,
       name: `${selectedUser.name.first} ${selectedUser.name.last}`,
       createdAt: new Date().toString(),
@@ -38,17 +44,21 @@ export default function ChatDetails() {
     setMessage("");
   };
 
+  // Filtra mensagens apenas do usuário selecionado
   const userMessages = chat.filter(
     (item) => item.userId === selectedUser?.login.uuid,
   );
 
   return (
     <SafeArea style={{ flex: 1 }}>
+      {/* Header com botão de voltar */}
       <ReturnHeader />
 
       <PageContainer style={{ flex: 1 }}>
+        {/* Título da tela */}
         <PageTitle>Chat com {selectedUser?.name.first}</PageTitle>
 
+        {/* Lista de mensagens */}
         <FlatList
           data={userMessages}
           keyExtractor={(item) => item.id}
@@ -72,6 +82,7 @@ export default function ChatDetails() {
           }
         />
 
+        {/* Input de mensagem */}
         <SearchInput
           value={message}
           onChangeText={setMessage}
@@ -79,6 +90,7 @@ export default function ChatDetails() {
           icon="chatbubbles-outline"
         />
 
+        {/* Botão de envio */}
         <BtnRow>
           <MainButton
             icon="send-outline"

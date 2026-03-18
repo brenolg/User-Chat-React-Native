@@ -4,20 +4,23 @@ import { formatDate } from "@/helper/dates";
 import { PageTitle, SafeArea } from "@/styles/commonStyles";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import React from "react";
-import { Image, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import { useTheme } from "styled-components/native";
-import { Container } from "./styles";
+import { Container, UserImage } from "./styles";
 
 import { RootStackParamList } from "@/types/RootStackParamList";
 type RouteProps = RouteProp<RootStackParamList, "Profile">;
 
 export default function Profile() {
+  // Acessa os parâmetros da rota
   const route = useRoute<RouteProps>();
   const { user } = route.params;
+
   const theme = useTheme();
 
   return (
     <SafeArea style={{ flex: 1 }}>
+      {/* Header com navegação de retorno */}
       <ReturnHeader />
 
       <ScrollView
@@ -25,20 +28,15 @@ export default function Profile() {
         style={{ flex: 1, backgroundColor: theme.colors.background }}
       >
         <Container>
-          <Image
-            source={{ uri: user.picture.large }}
-            style={{
-              width: 120,
-              height: 120,
-              borderRadius: 60,
-              marginBottom: 20,
-            }}
-          />
+          {/* Imagem do usuário */}
+          <UserImage source={{ uri: user.picture.large }} />
 
+          {/* Nome completo */}
           <PageTitle>
             {user.name.first} {user.name.last}
           </PageTitle>
 
+          {/* Grid com informações detalhadas do usuário */}
           <InfoGrid
             data={[
               { value: user.email, label: "E-mail" },

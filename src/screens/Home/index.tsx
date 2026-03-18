@@ -135,11 +135,13 @@ export default function Home() {
 
   return (
     <SafeArea>
+      {/* Header com toggle de tema */}
       <Header>
         <ThemeToggle />
       </Header>
 
       <PageContainer>
+        {/* Filtros por gênero e pais */}
         <Filter
           value={gender}
           onChange={setGender}
@@ -149,7 +151,6 @@ export default function Home() {
             { label: "Mulheres", value: "female", icon: "female" },
           ]}
         />
-
         <Filter
           value={country}
           onChange={setCountry}
@@ -159,8 +160,10 @@ export default function Home() {
             { label: "EUA", value: "US", icon: "location-outline" },
           ]}
         />
+        {/* Botão para aplicar filtros */}
         <SearchButton onPress={handleSearch} text="Buscar" icon="search" />
 
+        {/* Lista de usuários */}
         <FlatList
           data={users}
           keyExtractor={(item) => item.login.uuid}
@@ -199,6 +202,7 @@ export default function Home() {
           }
         />
 
+        {/* Modal de erro */}
         <ErrorModal
           visible={showError}
           message={error}
