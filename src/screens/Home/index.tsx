@@ -6,7 +6,6 @@ import SearchButton from "@/components/buttons/MainButton";
 import UserCard from "@/components/cards/UserCard";
 import ThemeToggle from "@/components/inputs/ThemeToggle";
 import { useUsers } from "@/context/UsersContext";
-import usersMock from "@/mocks/usersMock";
 import { PageContainer, SafeArea } from "@/styles/commonStyles";
 import { RootStackParamList } from "@/types/RootStackParamList";
 import User from "@/types/user";
@@ -75,9 +74,9 @@ export default function Home() {
 
       // Tratamento de erros caso a api não de erros e não tenha usuarios em results
       //Descomente o codigo abaixo com o mock caso queira ver as funcionalidades
-      setUsers((prev) =>
-        isRefresh ? usersMock.results : [...prev, ...usersMock.results],
-      );
+      //setUsers((prev) =>
+      //  isRefresh ? usersMock.results : [...prev, ...usersMock.results],
+      //);
       const data = response.data.results;
       if (!data || data.length === 0) {
         setError(
