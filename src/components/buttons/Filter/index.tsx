@@ -36,8 +36,9 @@ export default function Filter<T>({ value, onChange, options }: Props<T>) {
                 active ? theme.colors.background : theme.colors.secondaryText
               }
             />
-
-            <FilterText active={active}>{option.label}</FilterText>
+            {option.label && (
+              <FilterText active={active}>{option.label}</FilterText>
+            )}
           </FilterButton>
         );
       })}

@@ -8,10 +8,11 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.text};
   margin-bottom: 6px;
+  text-align: center;
 `;
 
 export const Description = styled.Text`

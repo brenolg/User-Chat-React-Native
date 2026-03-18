@@ -5,7 +5,6 @@ export const Header = styled.View`
   align-items: center;
   flex-direction: row;
   display: flex;
-
   border-top-width: 1px;
   border-bottom-width: 1px;
   border-color: ${({ theme }) => theme.colors.border};

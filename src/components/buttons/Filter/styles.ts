@@ -17,8 +17,7 @@ export const FilterButton = styled.Pressable<{ active: boolean }>`
 `;
 
 export const FilterText = styled.Text<{ active: boolean }>`
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 12px;
   color: ${({ theme, active }) => {
     if (theme.mode === "dark") {
       return theme.colors.text;

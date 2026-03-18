@@ -6,4 +6,12 @@ export const Container = styled.View`
   gap: 6px;
 `;
 
-export const StyledSwitch = styled.Switch``;
+export const StyledSwitch = styled.Switch.attrs(({ theme }) => ({
+  trackColor: {
+    false: "#767577",
+    true: "#004691",
+  },
+  thumbColor: "#fff",
+}))`
+  transform: scale(0.85);
+`;
