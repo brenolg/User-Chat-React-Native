@@ -1,7 +1,6 @@
 const usersMock = {
   results: Array.from({ length: 30 }).map((_, index) => {
     const id = index + 1;
-
     const gender = index % 2 === 0 ? "male" : "female";
 
     return {
@@ -34,9 +33,16 @@ const usersMock = {
         state: "SP",
         country: "Brazil",
         postcode: `0100${id}`,
+
         coordinates: {
           latitude: "-23.5505",
           longitude: "-46.6333",
+        },
+
+        // ✅ ADICIONADO
+        timezone: {
+          offset: "-3:00",
+          description: "Brasilia Time",
         },
       },
 
@@ -44,6 +50,12 @@ const usersMock = {
         large: `https://randomuser.me/api/portraits/${gender === "male" ? "men" : "women"}/${id}.jpg`,
         medium: `https://randomuser.me/api/portraits/med/${gender === "male" ? "men" : "women"}/${id}.jpg`,
         thumbnail: `https://randomuser.me/api/portraits/thumb/${gender === "male" ? "men" : "women"}/${id}.jpg`,
+      },
+
+      // ✅ ADICIONADO
+      id: {
+        name: "CPF",
+        value: `${Math.floor(Math.random() * 10000000000)}`,
       },
     };
   }),
