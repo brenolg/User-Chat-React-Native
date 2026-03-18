@@ -4,8 +4,6 @@ Aplicação mobile desenvolvida com **React Native (Expo)** que permite explorar
 
 O app foi construído com foco em **experiência do usuário, performance e organização de código**.
 
----
-
 ## 📱 Funcionalidades
 
 ### 👥 Lista de Usuários
@@ -18,7 +16,7 @@ O app foi construído com foco em **experiência do usuário, performance e orga
 - Tratamento de loading e erros
 - Navegação para perfil do usuário
 - 
-- ### Card de usuário
+- ### 👤 Card de usuário
 - Exibição de informações principais:
   - Foto (avatar)
   - Nome completo
@@ -32,8 +30,6 @@ O app foi construído com foco em **experiência do usuário, performance e orga
 - Uso de `useCallback` para otimização de handlers
 - Layout responsivo e reutilizável
 
----
-
 ### 👤 Perfil do Usuário
 - Exibição de:
   - Foto
@@ -43,8 +39,6 @@ O app foi construído com foco em **experiência do usuário, performance e orga
   - Idade e data de nascimento
   - Localização completa
 - Layout organizado em grid reutilizável
-
----
 
 ### 💬 Chat do Usuário
 
@@ -64,7 +58,6 @@ O app foi construído com foco em **experiência do usuário, performance e orga
 - Permite enviar mensagens para qualquer usuário
 - Seleção de usuário via dropdown 
 
----
 
 ### 🎨 UI / UX
 - Suporte a **tema dark/light**
@@ -73,8 +66,6 @@ O app foi construído com foco em **experiência do usuário, performance e orga
   - Loading
   - EmptyState
   - Error
-
----
 
 ## 🧠 Decisões Técnicas
 
@@ -93,8 +84,6 @@ O app foi construído com foco em **experiência do usuário, performance e orga
 
 - Tipagem com **TypeScript** para maior segurança
 
----
-
 ## 🛠️ Tecnologias Utilizadas
 
 - React Native (Expo SDK 50+)
@@ -103,9 +92,7 @@ O app foi construído com foco em **experiência do usuário, performance e orga
 - Axios
 - Styled-components
 - Context API
-- Hooks (useState, useEffect, useCallback)
-
----
+- Hooks (useState, useEffect, useCallback, React.memo)
 
 ## 📡 API
 
