@@ -4,6 +4,9 @@ Aplicação mobile desenvolvida com **React Native (Expo)** que permite explorar
 
 O app foi construído com foco em **experiência do usuário, performance e organização de código**.
 
+
+<img width="100%" src="./demo.gif" />
+
 ## 📱 Funcionalidades
 
 ### 👥 Lista de Usuários
